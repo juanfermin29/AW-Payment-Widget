@@ -6,6 +6,7 @@ export default defineConfig({
     lib: {
       entry: 'src/elements/aw-payment-widget/aw-payment-widget.ts',
       formats: ['es'],
+      fileName: (format) => `aw-payment-widget.${format}.js`,
     },
     rollupOptions: {
      

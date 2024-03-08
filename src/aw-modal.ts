@@ -1,6 +1,6 @@
 import { LitElement, html } from "lit";
 import { customElement, property } from "lit/decorators.js";
-import { modalStyles } from "./aw-modal.styles";
+import { modalStyles } from "./elements/my-modal/aw-modal.styles";
 
 @customElement("aw-modal")
 export class AwModal extends LitElement {
