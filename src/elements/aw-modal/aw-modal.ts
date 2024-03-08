@@ -4,6 +4,8 @@ import { modalStyles } from "./aw-modal.styles";
 import { GlobalDataContext } from "../../context";
 import { consume } from "@lit/context";
 import { GlobalData } from "../../models";
+import '../index';
+
 
 @customElement("aw-modal")
 export class AwModal extends LitElement {
@@ -14,23 +16,18 @@ export class AwModal extends LitElement {
 
   @consume({ context: GlobalDataContext })
   @property({ attribute: false })
-  public _context?: GlobalData;
+  public _context!: GlobalData;
 
   render() {
-    return html`<div class=${`${this.visible ? "visible" : ""} " wrapper`}>
-      <div class="modal">
-        <div class="button-container">
-          <button @click=${this.handleClick}>
-            Cancelar 
-          </button>
+    return html`
+      <div class=${`${this.visible ? "visible" : ""} wrapper`}>
+        <div class="modal border">
+          ${this._context.loadingState.isLoading
+            ? html` <aw-loading></aw-loading>`
+            : html`<aw-bank-selection></aw-bank-selection>`}
         </div>
       </div>
-    </div> `;
-  }
-
-  private handleClick() {
-    this.visible = false;
-    this.dispatchEvent(new CustomEvent("close-modal-event"));
+    `;
   }
 }
 

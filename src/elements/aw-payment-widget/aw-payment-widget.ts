@@ -1,7 +1,7 @@
 import { LitElement, css, html } from "lit";
 import { customElement, property, state } from "lit/decorators.js";
 import { TWStyles } from "../../../tailwind/twlit";
-import "../my-modal/aw-modal";
+import "../aw-modal/aw-modal";
 import { provide } from "@lit/context";
 import { GlobalDataContext } from "../../context";
 import { GlobalData } from "../../models";
@@ -66,6 +66,9 @@ export class AWPaymentWidget extends LitElement {
   private _closeModalEvent() {
     this._visibleModal = false;
     this._context = {
+      loadingState: {
+        isLoading: false,
+      },
       amount: 0,
       country: "",
       selectedBank: "",

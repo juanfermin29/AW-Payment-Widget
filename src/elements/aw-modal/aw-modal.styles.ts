@@ -31,9 +31,12 @@ export const modalStyles = css`
     position: absolute;
     top: 50%;
     left: 50%;
+    padding-bottom: 20px;
+    padding-top:20px;
     transform: translate(-50%, -50%);
     border-radius: 2px;
     min-width: 300px;
+    height:500px;
   }
 
   .title {
