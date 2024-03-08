@@ -1,11 +1,14 @@
 import { LitElement, css, html } from "lit";
 import { customElement, property, state } from "lit/decorators.js";
-import {TWStyles} from '../../../tailwind/twlit';
-import '../my-modal/aw-modal';
+import { TWStyles } from "../../../tailwind/twlit";
+import "../my-modal/aw-modal";
+import { provide } from "@lit/context";
+import { GlobalDataContext } from "../../context";
+import { GlobalData } from "../../models";
 
 @customElement("aw-payment-widget")
 export class AWPaymentWidget extends LitElement {
-  static styles = [css``,TWStyles];
+  static styles = [css``, TWStyles];
 
   @property({ type: String })
   country: string = "";
@@ -13,17 +16,17 @@ export class AWPaymentWidget extends LitElement {
   @property({ type: String })
   currency: string = "";
 
+  @property()
+  widgetTokenPromise?: () => Promise<string> = undefined;
+
   @state()
   private _loading: boolean = false;
 
   @state()
   private _visibleModal: boolean = false;
 
-   _token: string = "";
-  
-
-  @property()
-  widgetTokenPromise?: () => Promise<string> = undefined;
+  @provide({ context: GlobalDataContext })
+  private _context: GlobalData = new GlobalData();
 
   render() {
     return html`<button
@@ -35,11 +38,12 @@ export class AWPaymentWidget extends LitElement {
         ${this._loading
           ? html`<div class="animate-spin h-3 w-3 border "></div>`
           : ""}
-        <span> Pagar ${JSON.stringify(this._visibleModal)}</span>
+        <span> Pagar </span>
       </button>
-      <aw-modal 
-      @close-modal-event=${this._closeModalEvent}
-      ?visible=${this._visibleModal}></aw-modal> `;
+      <aw-modal
+        @close-modal-event=${this._closeModalEvent}
+        ?visible=${this._visibleModal}
+      ></aw-modal> `;
   }
 
   private async fetchToken() {
@@ -53,14 +57,20 @@ export class AWPaymentWidget extends LitElement {
           } must be a string, object returned ${JSON.stringify(resp)}`
         );
       }
-      this._token = resp;
+      this._context.widgetToken = resp;
       this._loading = false;
       this._visibleModal = true;
     }
   }
 
-  private _closeModalEvent(){
+  private _closeModalEvent() {
     this._visibleModal = false;
+    this._context = {
+      amount: 0,
+      country: "",
+      selectedBank: "",
+      widgetToken: "",
+    };
   }
 }
 

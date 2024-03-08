@@ -1,0 +1,1 @@
+export * from './global-data/global-data';

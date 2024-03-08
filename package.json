@@ -18,11 +18,12 @@
     "serve": "tsc && vite preview"
   },
   "dependencies": {
+    "@lit/context": "^1.1.0",
     "concurrently": "^8.2.2",
+    "lit": "^3.1.2",
     "socket.io-client": "^4.7.4",
     "twlit": "^0.0.1-alpha.37",
-    "vite-plugin-dts": "^3.7.3",
-    "lit": "^3.1.2"
+    "vite-plugin-dts": "^3.7.3"
   },
   "devDependencies": {
     "lit": "^3.1.2",
