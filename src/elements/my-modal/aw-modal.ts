@@ -1,6 +1,6 @@
 import { LitElement, html } from "lit";
 import { customElement, property } from "lit/decorators.js";
-import { modalStyles } from "./elements/my-modal/aw-modal.styles";
+import { modalStyles } from "./aw-modal.styles";
 
 @customElement("aw-modal")
 export class AwModal extends LitElement {
@@ -13,8 +13,8 @@ export class AwModal extends LitElement {
     return html`<div class=${`${this.visible ? "visible" : ""} " wrapper`}>
       <div class="modal">
         <div class="button-container">
-          <h2>vini mono</h2>
-          <button @click=${this.handleClick}></button>
+ 
+          <button @click=${this.handleClick}>Cancelar</button>
         </div>
       </div>
     </div> `;

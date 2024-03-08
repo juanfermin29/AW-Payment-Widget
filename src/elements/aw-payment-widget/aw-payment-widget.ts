@@ -1,6 +1,8 @@
 import { LitElement, css, html } from "lit";
 import { customElement, property, state } from "lit/decorators.js";
-import {TWStyles} from '../tailwind/twlit';
+import {TWStyles} from '../../../tailwind/twlit';
+import '../my-modal/aw-modal';
+
 @customElement("aw-payment-widget")
 export class AWPaymentWidget extends LitElement {
   static styles = [css``,TWStyles];
@@ -35,9 +37,9 @@ export class AWPaymentWidget extends LitElement {
           : ""}
         <span> Pagar ${JSON.stringify(this._visibleModal)}</span>
       </button>
-     <!--  <aw-modal 
+      <aw-modal 
       @close-modal-event=${this._closeModalEvent}
-      ?visible=${this._visibleModal}></aw-modal>  -->`;
+      ?visible=${this._visibleModal}></aw-modal> `;
   }
 
   private async fetchToken() {
