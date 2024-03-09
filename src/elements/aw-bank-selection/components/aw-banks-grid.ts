@@ -1,4 +1,4 @@
-import { LitElement, html, css } from "lit";
+import { LitElement, html } from "lit";
 import { customElement, property } from "lit/decorators.js";
 import { TWStyles } from "../../../../tailwind/twlit";
 import { Bank } from "../../../models";
@@ -17,8 +17,8 @@ export class AwBanksGrid extends LitElement {
         ${this.banks?.map((bank: Bank) => {
           return html`
             <div
-              @click=${(_: Event)=>this._selectBank(_,bank.name)}
-              class="h-24 rounded-lg w-44 mx-auto hover:bg-gray-100 mb-3 cursor-pointer transition-all duration-200
+              @click=${(_: Event) => this._selectBank(_, bank.name)}
+              class="h-24 rounded-lg w-44 mx-auto hover:bg-gray-100 mb-3  flex-col cursor-pointer transition-all duration-200
            bg-white flex justify-center items-center"
             >
               <img
@@ -29,18 +29,19 @@ export class AwBanksGrid extends LitElement {
                 height="24"
               />
             </div>
+          <span>
+          ${bank.name}
+          </span>
           `;
         })}
       </div>
     `;
   }
 
-  private _selectBank(_: Event, name:string){
-    console.log('click');
-    
+  private _selectBank(_: Event, name: string) {
     $profile.set({
       ...$profile.get(),
-      selectedBank: name
-    })
+      selectedBank: name,
+    });
   }
 }

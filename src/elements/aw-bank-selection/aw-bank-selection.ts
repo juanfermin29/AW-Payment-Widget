@@ -1,16 +1,12 @@
-import {
-  LitElement,
-  css,
-  html,
-} from "lit";
+import { LitElement, css, html } from "lit";
 import { customElement, property } from "lit/decorators.js";
 import { Bank } from "../../models";
 import { TWStyles } from "../../../tailwind/twlit";
 import { StoreController } from "@nanostores/lit";
 import { $profile } from "../../context";
 import { DASHBORAD_API_URL_BASE } from "../../utils";
-import {Task} from '@lit/task';
-import './components/index';
+import { Task } from "@lit/task";
+import "./components/index";
 @customElement("aw-bank-selection")
 export class AWBankSelection extends LitElement {
   static styles = [css``, TWStyles];
@@ -19,32 +15,38 @@ export class AWBankSelection extends LitElement {
   private _context = new StoreController(this, $profile);
 
   private _banksTask = new Task(this, {
-    task: async ([], {signal}) => {
-      const response = await fetch( `${DASHBORAD_API_URL_BASE}/bank/scrapper-banks/Chile/CLP`, {signal});
-      if (!response.ok) { throw new Error('Error looking for banks'); }
-      const data = await response.json() as { data: Bank[]}
+    task: async ([], { signal }) => {
+      const response = await fetch(
+        `${DASHBORAD_API_URL_BASE}/bank/scrapper-banks/Chile/CLP`,
+        { signal }
+      );
+      if (!response.ok) {
+        throw new Error("Error looking for banks");
+      }
+      const data = (await response.json()) as { data: Bank[] };
       return data;
     },
-    args: () => [this._context.value.modalIsVisible]
+    args: () => [this._context.value.modalIsVisible],
   });
 
   render() {
     return html`
       <div class="flex flex-col  h-[100%] text-center">
-      ${this._banksTask.render({
-        complete(banks){
-          return html`
-              <span class=" font-bold text-base text-[#131313]" >Selecciona tu banco</span>
+        ${this._banksTask.render({
+          complete(banks) {
+            return html`
+              <span class=" font-bold text-base text-[#131313]"
+                >Selecciona tu banco</span
+              >
               <aw-banks-grid .banks=${banks.data}></aw-banks-grid>
               <div class="flex flex-1 "></div>
-          `
-        },
-        pending: ()=> html`<aw-loading></aw-loading>`
-      })}
+            `;
+          },
+          pending: () => html`<aw-loading></aw-loading>`,
+        })}
       </div>
     `;
   }
-
 }
 
 declare global {

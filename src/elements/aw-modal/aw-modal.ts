@@ -1,14 +1,14 @@
 import { LitElement, html } from "lit";
-import { customElement, property, state } from "lit/decorators.js";
+import { customElement, property } from "lit/decorators.js";
 import { modalStyles } from "./aw-modal.styles";
 import "../index";
-import { StoreController, useStores } from "@nanostores/lit";
+import { StoreController } from "@nanostores/lit";
 import { $profile } from "../../context";
 
 @customElement("aw-modal")
 export class AwModal extends LitElement {
   static styles = [modalStyles];
-  
+
   @property({ attribute: false })
   private _context = new StoreController(this, $profile);
 
@@ -23,9 +23,9 @@ export class AwModal extends LitElement {
           <aw-close-header
             @close-modal-event=${this._closeModalEvent}
           ></aw-close-header>
-          ${this._context?.value.loadingState.isLoading
-            ? html` <aw-loading></aw-loading>`
-            : html` <aw-bank-selection></aw-bank-selection> `}
+          ${!this._context?.value.selectedBank
+            ? html` <aw-bank-selection></aw-bank-selection> `
+            : html` <aw-scrapping-process></aw-scrapping-process>`}
         </div>
       </div>
     `;
@@ -33,12 +33,12 @@ export class AwModal extends LitElement {
 
   private _closeModalEvent() {
     $profile.set({
-      amount:0,
-      country: '',
-      loadingState: {isLoading: false},
-      selectedBank: '',
+      amount: 0,
+      country: "",
+      loadingState: { isLoading: false },
+      selectedBank: "",
       widgetToken: "",
-      modalIsVisible: false
+      modalIsVisible: false,
     });
   }
 }
