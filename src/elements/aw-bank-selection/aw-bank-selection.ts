@@ -3,7 +3,7 @@ import { customElement, property } from "lit/decorators.js";
 import { Bank } from "../../models";
 import { TWStyles } from "../../../tailwind/twlit";
 import { StoreController } from "@nanostores/lit";
-import { $profile } from "../../context";
+import { $dataContext } from "../../context";
 import { DASHBORAD_API_URL_BASE } from "../../utils";
 import { Task } from "@lit/task";
 import "./components/index";
@@ -12,10 +12,13 @@ export class AWBankSelection extends LitElement {
   static styles = [css``, TWStyles];
 
   @property({ attribute: false })
-  private _context = new StoreController(this, $profile);
+  private _context = new StoreController(this, $dataContext);
 
   private _banksTask = new Task(this, {
-    task: async ([], { signal }) => {
+    task: async ([_context], { signal }) => {
+        if(!this._context.value.modalIsVisible){
+          return;
+        }
       const response = await fetch(
         `${DASHBORAD_API_URL_BASE}/bank/scrapper-banks/Chile/CLP`,
         { signal }
@@ -38,7 +41,7 @@ export class AWBankSelection extends LitElement {
               <span class=" font-bold text-base text-[#131313]"
                 >Selecciona tu banco</span
               >
-              <aw-banks-grid .banks=${banks.data}></aw-banks-grid>
+              <aw-banks-grid .banks=${banks?.data}></aw-banks-grid>
               <div class="flex flex-1 "></div>
             `;
           },

@@ -1,7 +1,7 @@
 import { LitElement, html } from "lit";
 import { customElement } from "lit/decorators.js";
 import { TWStyles } from "../../../tailwind/twlit";
-
+//todo pasarlo a componente global
 @customElement("aw-loading")
 export class AwLoading extends LitElement {
   static styles = [TWStyles];

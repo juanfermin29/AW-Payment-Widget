@@ -1,6 +1,5 @@
-/*  import { io } from "socket.io-client";
-const local = 
-"http://localhost:3000";
+ import { io } from "socket.io-client";
+const local = "http://localhost:3000";
 
 export const getSocketConnection = (client_id : string) => {
   return io(`${local}/api/websocket`, {
@@ -12,4 +11,3 @@ export const getSocketConnection = (client_id : string) => {
     autoConnect: false,
   });
 };
-  */

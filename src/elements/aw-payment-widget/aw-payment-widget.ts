@@ -3,7 +3,7 @@ import { customElement, property, state } from "lit/decorators.js";
 import { TWStyles } from "../../../tailwind/twlit";
 import "../aw-modal/aw-modal";
 import { StoreController } from "@nanostores/lit";
-import { $profile } from "../../context";
+import { $dataContext } from "../../context";
 
 @customElement("aw-payment-widget")
 export class AWPaymentWidget extends LitElement {
@@ -22,7 +22,7 @@ export class AWPaymentWidget extends LitElement {
   private _loading: boolean = false;
 
   @property({ attribute: false })
-  private _context = new StoreController(this, $profile);
+  private _context = new StoreController(this, $dataContext);
 
 
   render() {
@@ -54,8 +54,8 @@ export class AWPaymentWidget extends LitElement {
         );
       }
 
-      $profile.set({
-        ...$profile.get(),
+      $dataContext.set({
+        ...$dataContext.get(),
         widgetToken: resp,
         modalIsVisible: true
       });

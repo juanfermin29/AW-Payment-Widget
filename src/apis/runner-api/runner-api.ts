@@ -23,6 +23,5 @@ export const fetchRunner = async ({
       return await continueResponse.json();
     }
   } catch (error) {
-    console.log(error);
   }
 };

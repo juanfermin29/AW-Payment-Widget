@@ -10,15 +10,36 @@
     ></script>
   </head>
   <body>
-    <aw-payment-widget></aw-payment-widget>
+    <aw-payment-widget
+      currency="CLP"
+      country="Chile"
+      amount="1500"
+    ></aw-payment-widget>
   </body>
   <script>
-    document.querySelector("aw-payment-widget").widgetTokenPromise = getDogs;
-    async function getDogs() {
-      var resp = await fetch("https://dog.ceo/api/breeds/image/random").then(
-        (x) => x.json()
-      );
-      return resp.status;
+    document.querySelector("aw-payment-widget").widgetTokenPromise = getWidgetToken;
+    const payData = {
+      currency: "CLP",
+      amount: 1500,
+      metadata: {
+        clientEmail: "juan@email.com",
+        clientDNI: "26075618",
+      },
+    };
+    async function getWidgetToken() {
+      var resp = await fetch(
+        "http://localhost:3005/generate-widget-token",
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            amount: payData.amount,
+            currency: payData.currency,
+            metadata: payData.metadata
+          }),
+        }
+      ).then((x) => x.json());
+      return resp.widget_token;
     }
   </script>
 </html>

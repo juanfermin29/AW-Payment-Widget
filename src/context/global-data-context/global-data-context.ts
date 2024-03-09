@@ -1,8 +1,9 @@
 import { map } from "nanostores";
 import { GlobalData } from "../../models";
-export const $profile = map<GlobalData>({
+export const $dataContext = map<GlobalData>({
     amount: 0,
     country: '',
+    currency: '',
     loadingState:{isLoading: false},
     modalIsVisible: false,
     selectedBank: '',

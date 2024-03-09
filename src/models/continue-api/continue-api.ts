@@ -4,3 +4,12 @@ export interface ContinueApiBody {
   currency: string;
   country: string;
 }
+
+
+export interface ContinueApiResponse{
+    clientId: string;
+    amount: number;
+    currency: string;
+    country: string;
+    bankId: string;
+}

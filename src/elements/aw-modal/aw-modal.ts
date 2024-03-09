@@ -2,15 +2,16 @@ import { LitElement, html } from "lit";
 import { customElement, property } from "lit/decorators.js";
 import { modalStyles } from "./aw-modal.styles";
 import "../index";
+import './components/index'
 import { StoreController } from "@nanostores/lit";
-import { $profile } from "../../context";
+import { $dataContext } from "../../context";
 
 @customElement("aw-modal")
 export class AwModal extends LitElement {
   static styles = [modalStyles];
 
   @property({ attribute: false })
-  private _context = new StoreController(this, $profile);
+  private _context = new StoreController(this, $dataContext);
 
   render() {
     return html`
@@ -32,8 +33,9 @@ export class AwModal extends LitElement {
   }
 
   private _closeModalEvent() {
-    $profile.set({
+    $dataContext.set({
       amount: 0,
+      currency: '',
       country: "",
       loadingState: { isLoading: false },
       selectedBank: "",
