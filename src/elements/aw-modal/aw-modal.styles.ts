@@ -8,7 +8,7 @@ export const modalStyles = css`
     top: 0;
     width: 100%;
     height: 100%;
-    background-color: gray;
+/*     background-color: gray; */
     opacity: 0;
     visibility: hidden;
     transform: scale(1.1);
@@ -27,7 +27,7 @@ export const modalStyles = css`
     font-family: Helvetica;
     font-size: 14px;
     padding: 10px 10px 5px 10px;
-    background-color: #fff;
+  /*   background-color: #fff; */
     position: absolute;
     top: 50%;
     left: 50%;

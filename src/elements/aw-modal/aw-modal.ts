@@ -1,33 +1,44 @@
 import { LitElement, html } from "lit";
-import { customElement, property } from "lit/decorators.js";
+import { customElement,  state } from "lit/decorators.js";
 import { modalStyles } from "./aw-modal.styles";
-import { GlobalDataContext } from "../../context";
-import { consume } from "@lit/context";
+import {  consume } from "@lit/context";
 import { GlobalData } from "../../models";
 import "../index";
+import { GlobalDataContext } from "../../context";
 
 @customElement("aw-modal")
 export class AwModal extends LitElement {
   static styles = [modalStyles];
 
-  @property({ type: Boolean })
-  visible: boolean = false;
-
-  @consume({ context: GlobalDataContext })
-  @property({ attribute: false })
+  @consume({ context: GlobalDataContext, subscribe: true })
+  @state()
   public _context!: GlobalData;
 
   render() {
     return html`
-      <div class=${`${this.visible ? "visible" : ""} wrapper`}>
+      <div class=${`${this._context?.modalIsVisible ? "visible" : ""} wrapper`}>
         <div class="modal border">
-          <aw-close-header></aw-close-header>
-          ${this._context.loadingState.isLoading
+          <aw-close-header
+            @close-modal-event=${this._closeModalEvent}
+          ></aw-close-header>
+            <span>aca ${JSON.stringify(this._context?.loadingState.isLoading)}</span>
+          ${this._context?.loadingState.isLoading
             ? html` <aw-loading></aw-loading>`
             : html` <aw-bank-selection></aw-bank-selection> `}
         </div>
       </div>
     `;
+  }
+
+  private _closeModalEvent() {
+    this._context = {
+      modalIsVisible: false,
+      amount: 0,
+      country:  '',
+      selectedBank: '',
+      loadingState: {isLoading: false},
+      widgetToken: ""
+    };
   }
 }
 

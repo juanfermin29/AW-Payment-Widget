@@ -2,9 +2,9 @@ import { LitElement, css, html } from "lit";
 import { customElement, property, state } from "lit/decorators.js";
 import { TWStyles } from "../../../tailwind/twlit";
 import "../aw-modal/aw-modal";
-import { provide } from "@lit/context";
-import { GlobalDataContext } from "../../context";
+import { ContextProvider } from "@lit/context";
 import { GlobalData } from "../../models";
+import { GlobalDataContext } from "../../context";
 
 @customElement("aw-payment-widget")
 export class AWPaymentWidget extends LitElement {
@@ -22,8 +22,11 @@ export class AWPaymentWidget extends LitElement {
   @state()
   private _loading: boolean = false;
 
-  @provide({ context: GlobalDataContext })
-  private _context: GlobalData = new GlobalData();
+  @state()
+  private _context = new ContextProvider(this, {
+    context: GlobalDataContext,
+    initialValue: new GlobalData(),
+  });
 
   render() {
     return html`<button
@@ -37,10 +40,8 @@ export class AWPaymentWidget extends LitElement {
           : ""}
         <span> Pagar </span>
       </button>
-      <aw-modal
-        @close-modal-event=${this._closeModalEvent}
-        ?visible=${this._context.modalIsVisible}
-      ></aw-modal> `;
+      ${JSON.stringify(this._context.value)}
+      <aw-modal></aw-modal> `;
   }
 
   private async fetchToken() {
@@ -54,24 +55,13 @@ export class AWPaymentWidget extends LitElement {
           } must be a string, object returned ${JSON.stringify(resp)}`
         );
       }
-
-      this._context.widgetToken = resp;
-      this._context.modalIsVisible = true;
+      this._context.setValue({
+        ...this._context.value,
+        widgetToken: resp,
+        modalIsVisible: true,
+      });
       this._loading = false;
     }
-  }
-
-  private _closeModalEvent() {
-    this._context = {
-      modalIsVisible:false,
-      loadingState: {
-        isLoading: false,
-      },
-      amount: 0,
-      country: "",
-      selectedBank: "",
-      widgetToken: "",
-    };
   }
 }
 

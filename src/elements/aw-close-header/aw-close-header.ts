@@ -12,6 +12,6 @@ export class AwCloseHeader extends LitElement {
     }
 
     private _closeModal(){
-        this.dispatchEvent(new CustomEvent('close-modal'));
+        this.dispatchEvent(new CustomEvent('close-modal-event'));
     }
 }
