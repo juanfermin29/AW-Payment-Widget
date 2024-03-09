@@ -33,8 +33,11 @@ export class AwModal extends LitElement {
 
   private _closeModalEvent() {
     $profile.set({
-      ...$profile.get(),
-      widgetToken: "no one",
+      amount:0,
+      country: '',
+      loadingState: {isLoading: false},
+      selectedBank: '',
+      widgetToken: "",
       modalIsVisible: false
     });
   }

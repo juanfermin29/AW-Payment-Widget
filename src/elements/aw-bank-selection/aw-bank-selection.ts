@@ -1,17 +1,16 @@
 import {
   LitElement,
-  PropertyValueMap,
   css,
   html,
 } from "lit";
-import { customElement, property, state } from "lit/decorators.js";
+import { customElement, property } from "lit/decorators.js";
 import { Bank } from "../../models";
 import { TWStyles } from "../../../tailwind/twlit";
 import { StoreController } from "@nanostores/lit";
 import { $profile } from "../../context";
 import { DASHBORAD_API_URL_BASE } from "../../utils";
 import {Task} from '@lit/task';
-
+import './components/index';
 @customElement("aw-bank-selection")
 export class AWBankSelection extends LitElement {
   static styles = [css``, TWStyles];
@@ -31,12 +30,12 @@ export class AWBankSelection extends LitElement {
 
   render() {
     return html`
-      <div class="flex flex-col border h-[100%] text-center">
+      <div class="flex flex-col  h-[100%] text-center">
       ${this._banksTask.render({
         complete(banks){
           return html`
               <span class=" font-bold text-base text-[#131313]" >Selecciona tu banco</span>
-              ${JSON.stringify(banks.data)}
+              <aw-banks-grid .banks=${banks.data}></aw-banks-grid>
               <div class="flex flex-1 "></div>
           `
         },
