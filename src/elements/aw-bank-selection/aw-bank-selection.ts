@@ -1,56 +1,51 @@
 import {
   LitElement,
-  PropertyDeclaration,
   PropertyValueMap,
   css,
   html,
 } from "lit";
 import { customElement, property, state } from "lit/decorators.js";
-import { Bank, GlobalData } from "../../models";
+import { Bank } from "../../models";
 import { TWStyles } from "../../../tailwind/twlit";
+import { StoreController } from "@nanostores/lit";
+import { $profile } from "../../context";
 import { DASHBORAD_API_URL_BASE } from "../../utils";
-import { consume, provide } from "@lit/context";
-import { GlobalDataContext } from "../../context";
+import {Task} from '@lit/task';
 
 @customElement("aw-bank-selection")
 export class AWBankSelection extends LitElement {
   static styles = [css``, TWStyles];
 
-  @consume({ context: GlobalDataContext,subscribe: true})
-  @state()
-  public _context!: GlobalData;
+  @property({ attribute: false })
+  private _context = new StoreController(this, $profile);
 
-  private banks: Bank[] = [];
-
-
-  /* */
-  /*     const resp = fetch(
-        `${DASHBORAD_API_URL_BASE}/bank/scrapper-banks/Chile/CLP`
-      ).then((x) => x.json()); */
+  private _banksTask = new Task(this, {
+    task: async ([], {signal}) => {
+      const response = await fetch( `${DASHBORAD_API_URL_BASE}/bank/scrapper-banks/Chile/CLP`, {signal});
+      if (!response.ok) { throw new Error('Error looking for banks'); }
+      const data = await response.json() as { data: Bank[]}
+      return data;
+    },
+    args: () => [this._context.value.modalIsVisible]
+  });
 
   render() {
-    if (this._context.modalIsVisible) {
-      this._updateLoading();
-    }
     return html`
       <div class="flex flex-col border h-[100%] text-center">
-        <span class=" font-bold text-base text-[#131313]"
-          >Selecciona tu banco</span
-        >
-        ${JSON.stringify(this._context)}
-        <div class="flex flex-1 "></div>
+      ${this._banksTask.render({
+        complete(banks){
+          return html`
+              <span class=" font-bold text-base text-[#131313]" >Selecciona tu banco</span>
+              ${JSON.stringify(banks.data)}
+              <div class="flex flex-1 "></div>
+          `
+        },
+        pending: ()=> html`<aw-loading></aw-loading>`
+      })}
       </div>
     `;
   }
 
-   private _updateLoading() {
-    setTimeout(() => {
-      this._context = {
-        ...this._context,
-        loadingState: {isLoading: true}
-      }; 
-    }, 3000);
-  } 
 }
 
 declare global {

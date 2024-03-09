@@ -2,9 +2,8 @@ import { LitElement, css, html } from "lit";
 import { customElement, property, state } from "lit/decorators.js";
 import { TWStyles } from "../../../tailwind/twlit";
 import "../aw-modal/aw-modal";
-import { ContextProvider } from "@lit/context";
-import { GlobalData } from "../../models";
-import { GlobalDataContext } from "../../context";
+import { StoreController } from "@nanostores/lit";
+import { $profile } from "../../context";
 
 @customElement("aw-payment-widget")
 export class AWPaymentWidget extends LitElement {
@@ -22,11 +21,9 @@ export class AWPaymentWidget extends LitElement {
   @state()
   private _loading: boolean = false;
 
-  @state()
-  private _context = new ContextProvider(this, {
-    context: GlobalDataContext,
-    initialValue: new GlobalData(),
-  });
+  @property({ attribute: false })
+  private _context = new StoreController(this, $profile);
+
 
   render() {
     return html`<button
@@ -40,6 +37,7 @@ export class AWPaymentWidget extends LitElement {
           : ""}
         <span> Pagar </span>
       </button>
+      
       ${JSON.stringify(this._context.value)}
       <aw-modal></aw-modal> `;
   }
@@ -55,10 +53,11 @@ export class AWPaymentWidget extends LitElement {
           } must be a string, object returned ${JSON.stringify(resp)}`
         );
       }
-      this._context.setValue({
-        ...this._context.value,
+
+      $profile.set({
+        ...$profile.get(),
         widgetToken: resp,
-        modalIsVisible: true,
+        modalIsVisible: true
       });
       this._loading = false;
     }
