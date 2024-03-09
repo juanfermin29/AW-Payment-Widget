@@ -4,8 +4,7 @@ import { modalStyles } from "./aw-modal.styles";
 import { GlobalDataContext } from "../../context";
 import { consume } from "@lit/context";
 import { GlobalData } from "../../models";
-import '../index';
-
+import "../index";
 
 @customElement("aw-modal")
 export class AwModal extends LitElement {
@@ -22,9 +21,10 @@ export class AwModal extends LitElement {
     return html`
       <div class=${`${this.visible ? "visible" : ""} wrapper`}>
         <div class="modal border">
+          <aw-close-header></aw-close-header>
           ${this._context.loadingState.isLoading
             ? html` <aw-loading></aw-loading>`
-            : html`<aw-bank-selection></aw-bank-selection>`}
+            : html` <aw-bank-selection></aw-bank-selection> `}
         </div>
       </div>
     `;

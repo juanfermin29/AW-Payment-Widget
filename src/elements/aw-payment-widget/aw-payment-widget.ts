@@ -22,9 +22,6 @@ export class AWPaymentWidget extends LitElement {
   @state()
   private _loading: boolean = false;
 
-  @state()
-  private _visibleModal: boolean = false;
-
   @provide({ context: GlobalDataContext })
   private _context: GlobalData = new GlobalData();
 
@@ -42,7 +39,7 @@ export class AWPaymentWidget extends LitElement {
       </button>
       <aw-modal
         @close-modal-event=${this._closeModalEvent}
-        ?visible=${this._visibleModal}
+        ?visible=${this._context.modalIsVisible}
       ></aw-modal> `;
   }
 
@@ -57,15 +54,16 @@ export class AWPaymentWidget extends LitElement {
           } must be a string, object returned ${JSON.stringify(resp)}`
         );
       }
+
       this._context.widgetToken = resp;
+      this._context.modalIsVisible = true;
       this._loading = false;
-      this._visibleModal = true;
     }
   }
 
   private _closeModalEvent() {
-    this._visibleModal = false;
     this._context = {
+      modalIsVisible:false,
       loadingState: {
         isLoading: false,
       },

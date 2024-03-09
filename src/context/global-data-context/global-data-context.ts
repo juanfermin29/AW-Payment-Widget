@@ -1,4 +1,4 @@
 import { createContext } from "@lit/context";
-import { GlobalData } from "../../interface";
+import { GlobalData } from "../../models";
 
 export const GlobalDataContext = createContext<GlobalData>({});

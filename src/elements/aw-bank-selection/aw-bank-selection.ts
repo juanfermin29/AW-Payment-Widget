@@ -1,7 +1,5 @@
-import { LitElement, css, html } from "lit";
+import { LitElement, PropertyValueMap,  css, html } from "lit";
 import { customElement, property } from "lit/decorators.js";
-import { GlobalDataContext } from "../../context";
-import { consume } from "@lit/context";
 import { Bank, GlobalData } from "../../models";
 import { TWStyles } from "../../../tailwind/twlit";
 import { DASHBORAD_API_URL_BASE } from "../../utils";
@@ -9,17 +7,13 @@ import { DASHBORAD_API_URL_BASE } from "../../utils";
 @customElement("aw-bank-selection")
 export class AWBankSelection extends LitElement {
   constructor() {
-    super();
-  }
-
-  firstUpdated() {
-    console.log("firstUpdated");
     /*      console.log('prueba');
       this._context.loadingState = { isLoading: true };
       const resp = fetch(
         `${DASHBORAD_API_URL_BASE}/bank/scrapper-banks/Chile/CLP`
       ).then((x) => x.json());
       console.log(resp); */
+    super();
   }
 
   static styles = [css``, TWStyles];
@@ -27,11 +21,30 @@ export class AWBankSelection extends LitElement {
   @property({ type: Boolean })
   visible: boolean = false;
 
-  @consume({ context: GlobalDataContext })
+  /* @consume({ context: GlobalDataContext }) */
   @property({ attribute: false })
   public _context!: GlobalData;
 
   private banks: Bank[] = [];
+  
+
+  protected shouldUpdate(_changedProperties: PropertyValueMap<any> | Map<PropertyKey, unknown>): boolean {
+    console.log(_changedProperties.get('visible'));
+      return true;
+  }
+
+    
+  protected updated(_changedProperties: PropertyValueMap<any> | Map<PropertyKey, unknown>): void {
+      console.log(_changedProperties);
+  }
+  /* 
+  private loadData(){
+    const resp = fetch(
+      `${DASHBORAD_API_URL_BASE}/bank/scrapper-banks/Chile/CLP`
+    ).then((x) => x.json());
+    return resp;
+    console.log(resp);
+  } */
 
   render() {
     return html`
@@ -40,10 +53,11 @@ export class AWBankSelection extends LitElement {
           >Selecciona tu banco</span
         >
         <div class="flex flex-1 "></div>
-        <button type="button">Continuar</button>
       </div>
     `;
   }
+
+ 
 }
 
 declare global {
