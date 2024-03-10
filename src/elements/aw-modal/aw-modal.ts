@@ -10,6 +10,12 @@ import { $dataContext } from "../../context";
 export class AwModal extends LitElement {
   static styles = [modalStyles];
 
+  @property({ type: String })
+  country!: string;
+
+  @property({ type: String })
+  currency!: string;
+
   @property({ attribute: false })
   private _context = new StoreController(this, $dataContext);
 
@@ -25,7 +31,7 @@ export class AwModal extends LitElement {
             @close-modal-event=${this._closeModalEvent}
           ></aw-close-header>
           ${!this._context?.value.selectedBank
-            ? html` <aw-bank-selection></aw-bank-selection> `
+            ? html` <aw-bank-selection country=${this.country} currency=${this.currency}></aw-bank-selection> `
             : html` <aw-scrapping-process></aw-scrapping-process>`}
         </div>
       </div>

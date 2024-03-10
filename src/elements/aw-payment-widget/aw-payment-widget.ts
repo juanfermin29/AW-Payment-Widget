@@ -2,30 +2,33 @@ import { LitElement, css, html } from "lit";
 import { customElement, property, state } from "lit/decorators.js";
 import { TWStyles } from "../../../tailwind/twlit";
 import "../aw-modal/aw-modal";
-import { StoreController } from "@nanostores/lit";
 import { $dataContext } from "../../context";
-
+import { awPaymentWidgetSchema } from "../../utils";
 @customElement("aw-payment-widget")
 export class AWPaymentWidget extends LitElement {
   static styles = [css``, TWStyles];
 
   @property({ type: String })
-  country: string = "";
+  country?: string;
 
   @property({ type: String })
-  currency: string = "";
+  currency?: string;
 
   @property()
-  widgetTokenPromise?: () => Promise<string> = undefined;
+  widgetTokenCallback?: () => Promise<string> = undefined;
 
   @state()
   private _loading: boolean = false;
 
-  @property({ attribute: false })
-  private _context = new StoreController(this, $dataContext);
-
+  validateProps() {
+     awPaymentWidgetSchema.validateSync({
+      currency: this.currency,
+      country: this.country,
+    });
+  }
 
   render() {
+    this.validateProps();
     return html`<button
         ?disabled=${this._loading}
         class=${` bg-blue-500 px-5 py-2 text-xl 
@@ -35,20 +38,22 @@ export class AWPaymentWidget extends LitElement {
         ${this._loading
           ? html`<div class="animate-spin h-3 w-3 border "></div>`
           : ""}
-        <span> Pagar </span>
+        <span> Pagar v6 </span>
       </button>
-      
-      <aw-modal></aw-modal> `;
+      <aw-modal
+        country=${this.country!}
+        currency=${this.currency!}
+      ></aw-modal> `;
   }
 
   private async fetchToken() {
-    if (this.widgetTokenPromise) {
+    if (this.widgetTokenCallback) {
       this._loading = true;
-      const resp = await this.widgetTokenPromise();
+      const resp = await this.widgetTokenCallback();
       if (typeof resp != "string") {
         throw new TypeError(
           `Return type of ${
-            this.widgetTokenPromise.name
+            this.widgetTokenCallback.name
           } must be a string, object returned ${JSON.stringify(resp)}`
         );
       }
@@ -56,9 +61,14 @@ export class AWPaymentWidget extends LitElement {
       $dataContext.set({
         ...$dataContext.get(),
         widgetToken: resp,
-        modalIsVisible: true
+        modalIsVisible: true,
       });
       this._loading = false;
+    } else {
+      throw new Error(
+        "widgetTokenCallback doesnt exist! " +
+          JSON.stringify(this.widgetTokenCallback)
+      );
     }
   }
 }

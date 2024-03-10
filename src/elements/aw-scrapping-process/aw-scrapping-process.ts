@@ -5,8 +5,6 @@ import { $scrappingContext, $socketContext } from "../../context";
 import { getSocketConnection } from "../../utils";
 import { fetchRunner } from "../../apis";
 import {
-  ScrapperInputRequired,
-  ScrapperInputSelect,
   ScrappingProcessState,
 } from "../../models";
 import "./components/index";

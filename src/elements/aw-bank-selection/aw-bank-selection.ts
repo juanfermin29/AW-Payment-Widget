@@ -11,16 +11,22 @@ import "./components/index";
 export class AWBankSelection extends LitElement {
   static styles = [css``, TWStyles];
 
+  @property({ type: String })
+  country!: string;
+
+  @property({ type: String })
+  currency!: string;
+
   @property({ attribute: false })
   private _context = new StoreController(this, $dataContext);
 
   private _banksTask = new Task(this, {
     task: async ([_context], { signal }) => {
-        if(!this._context.value.modalIsVisible){
-          return;
-        }
+      if (!this._context.value.modalIsVisible) {
+        return;
+      }
       const response = await fetch(
-        `${DASHBORAD_API_URL_BASE}/bank/scrapper-banks/Chile/CLP`,
+        `${DASHBORAD_API_URL_BASE}/bank/scrapper-banks/${this.country}/${this.currency}`,
         { signal }
       );
       if (!response.ok) {
@@ -38,7 +44,7 @@ export class AWBankSelection extends LitElement {
         ${this._banksTask.render({
           complete(banks) {
             return html`
-              <span class=" font-bold text-base text-[#131313]"
+              <span class="underline font-bold text-base text-[#131313]"
                 >Selecciona tu banco</span
               >
               <aw-banks-grid .banks=${banks?.data}></aw-banks-grid>

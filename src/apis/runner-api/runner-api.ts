@@ -1,5 +1,5 @@
 import { $dataContext, $scrappingContext } from "../../context";
-import { ScrapperResponse, ScrappingProcessState } from "../../models";
+import { ScrapperResponse } from "../../models";
 
 export const fetchRunner = async () => {
   try {

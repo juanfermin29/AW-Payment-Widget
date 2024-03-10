@@ -1,6 +1,6 @@
 {
   "name": "aw-payment-widget",
-  "version": "0.1.1",
+  "version": "0.1.5",
   "type": "module",
   "main": "dist/aw-payment-widget.es.js",
   "exports": {
@@ -22,11 +22,11 @@
     "@lit/task": "^1.0.0",
     "@nanostores/lit": "^0.2.0",
     "concurrently": "^8.2.2",
-    "lit": "^3.1.2",
     "nanostores": "^0.9.0",
     "socket.io-client": "^4.7.4",
     "twlit": "^0.0.1-alpha.37",
-    "vite-plugin-dts": "^3.7.3"
+    "vite-plugin-dts": "^3.7.3",
+    "yup": "^1.4.0"
   },
   "devDependencies": {
     "lit": "^3.1.2",

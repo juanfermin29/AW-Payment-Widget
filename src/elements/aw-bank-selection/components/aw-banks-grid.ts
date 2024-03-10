@@ -3,7 +3,7 @@ import { customElement, property } from "lit/decorators.js";
 import { TWStyles } from "../../../../tailwind/twlit";
 import { Bank } from "../../../models";
 import { $dataContext } from "../../../context";
-
+import bancoEstado from '../../../assets/bancoestado.svg'
 @customElement("aw-banks-grid")
 export class AwBanksGrid extends LitElement {
   static styles = [TWStyles];
@@ -22,7 +22,7 @@ export class AwBanksGrid extends LitElement {
            bg-white flex justify-center items-center"
             >
               <img
-                src="/assets/bancoestado.svg"
+                src=${bancoEstado}
                 class="mx-auto"
                 alt=${bank.name}
                 width="124"
