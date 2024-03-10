@@ -81,10 +81,14 @@ declare global {
   }
 }
 
-export const AwWidgetReact = createComponent({
+export const MyReactPaymentWidget = createComponent({
   tagName: "aw-payment-widget",
   elementClass: AWPaymentWidget,
   react: React,
+  events: {
+    onactivate: 'activate',
+    onchange: 'change',
+  },
   /*  events: {
     onWidgetTokenCallback: "widgetTokenCallback",
   }, */
