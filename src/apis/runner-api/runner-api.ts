@@ -1,27 +1,31 @@
-import { ContinueApiBody } from "../../models";
+import { $dataContext } from "../../context";
 
-export const fetchRunner = async ({
-  bankId,
-  country,
-  currency,
-  widgetToken,
-}: ContinueApiBody) => {
+export const fetchRunner = async () => {
   try {
-    const continueResponse = await fetch(
-      "https://dog.ceo/api/breeds/image/random",
+    const { widgetToken, selectedBank, amount, currency, country,clientId } =
+      $dataContext.get();
+    const runnerResponse = await fetch(
+      "http://localhost:3000/api/v1/scrapper-runner/widget",
       {
-        method: "GET",
+        method: "POST",
         cache: "no-cache",
-        /*     headers: {
+        headers: {
           "Content-Type": "application/json",
           Authorization: `Bearer ${widgetToken}`,
         },
-        body: JSON.stringify({ bankId, currency, country }), */
+        body: JSON.stringify({
+          bankId: selectedBank,
+          amount,
+          country,
+          currency,
+          clientId
+        }),
       }
     );
-    if (continueResponse.ok) {
-      return await continueResponse.json();
+    if (runnerResponse.ok) {
+      return await runnerResponse.json();
     }
   } catch (error) {
+    throw new Error(`${error}`);
   }
 };

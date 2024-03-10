@@ -38,7 +38,6 @@ export class AWPaymentWidget extends LitElement {
         <span> Pagar </span>
       </button>
       
-      ${JSON.stringify(this._context.value)}
       <aw-modal></aw-modal> `;
   }
 

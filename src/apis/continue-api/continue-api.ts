@@ -23,6 +23,7 @@ export const fetchContinue = async (): Promise<string> => {
         ...$dataContext.get(),
         currency: currency,
         amount: amount,
+        clientId: clientId,
       });
       return clientId;
     }

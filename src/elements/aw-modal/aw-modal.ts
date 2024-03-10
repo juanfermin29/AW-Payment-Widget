@@ -2,7 +2,7 @@ import { LitElement, html } from "lit";
 import { customElement, property } from "lit/decorators.js";
 import { modalStyles } from "./aw-modal.styles";
 import "../index";
-import './components/index'
+import "./components/index";
 import { StoreController } from "@nanostores/lit";
 import { $dataContext } from "../../context";
 
@@ -35,8 +35,9 @@ export class AwModal extends LitElement {
   private _closeModalEvent() {
     $dataContext.set({
       amount: 0,
-      currency: '',
+      currency: "",
       country: "",
+      clientId: "",
       loadingState: { isLoading: false },
       selectedBank: "",
       widgetToken: "",

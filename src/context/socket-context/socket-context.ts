@@ -1,8 +1,9 @@
-import { map } from "nanostores";
+import { atom } from "nanostores";
 import { Socket } from "socket.io-client";
 
-export const $socketContext = map<{
+export const $socketContext = atom<{
   $socket: Socket | null;
 }>({
   $socket: null,
 });
+

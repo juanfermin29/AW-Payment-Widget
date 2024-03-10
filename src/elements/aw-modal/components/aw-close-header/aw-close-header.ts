@@ -14,6 +14,9 @@ export class AwCloseHeader extends LitElement {
 
     private _closeModal(){
         $socketContext.get().$socket?.disconnect();
-        this.dispatchEvent(new CustomEvent('close-modal-event'));
+      /*   $socketContext.set({
+            $socket: null
+        }) */
+       this.dispatchEvent(new CustomEvent('close-modal-event')); 
     }
 }

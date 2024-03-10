@@ -5,6 +5,7 @@ export interface GlobalData {
   amount: number;
   country: string;
   currency: string;
+  clientId: string;
   selectedBank: string;
   modalIsVisible: boolean;
   loadingState: LoadingState;
