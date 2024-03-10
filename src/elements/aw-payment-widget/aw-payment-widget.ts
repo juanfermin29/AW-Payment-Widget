@@ -85,7 +85,7 @@ export const AwWidgetReact = createComponent({
   tagName: "aw-payment-widget",
   elementClass: AWPaymentWidget,
   react: React,
-  events: {
+  /*  events: {
     onWidgetTokenCallback: "widgetTokenCallback",
-  },
+  }, */
 });
