@@ -4,6 +4,9 @@ import { TWStyles } from "../../../tailwind/twlit";
 import "../aw-modal/aw-modal";
 import { $dataContext } from "../../context";
 import { awPaymentWidgetSchema } from "../../utils";
+import * as React from "react";
+import { createComponent } from "@lit/react";
+
 @customElement("aw-payment-widget")
 export class AWPaymentWidget extends LitElement {
   static styles = [css``, TWStyles];
@@ -21,7 +24,7 @@ export class AWPaymentWidget extends LitElement {
   private _loading: boolean = false;
 
   validateProps() {
-     awPaymentWidgetSchema.validateSync({
+    awPaymentWidgetSchema.validateSync({
       currency: this.currency,
       country: this.country,
     });
@@ -29,21 +32,20 @@ export class AWPaymentWidget extends LitElement {
 
   render() {
     this.validateProps();
-    return html`<button
+    return html`
+      <button
         ?disabled=${this._loading}
-        class=${` bg-blue-500 px-5 py-2 text-xl 
-      text-white rounded flex flex-row items-center hover:bg-blue-600 transition-all `}
+        class=${` bg-blue-500 px-5 py-2 text-xl text-white rounded flex flex-row
+        items-center hover:bg-blue-600 transition-all `}
         @click=${this.fetchToken}
       >
         ${this._loading
           ? html`<div class="animate-spin h-3 w-3 border "></div>`
           : ""}
-        <span> Pagar v6 </span>
+        <span> Pagar v6 R</span>
       </button>
-      <aw-modal
-        country=${this.country!}
-        currency=${this.currency!}
-      ></aw-modal> `;
+      <aw-modal country=${this.country!} currency=${this.currency!}></aw-modal>
+    `;
   }
 
   private async fetchToken() {
@@ -78,3 +80,12 @@ declare global {
     "aw-payment-widget": AWPaymentWidget;
   }
 }
+
+export const AwWidgetReact = createComponent({
+  tagName: "aw-payment-widget",
+  elementClass: AWPaymentWidget,
+  react: React,
+  events: {
+    onWidgetTokenCallback: "widgetTokenCallback",
+  },
+});
