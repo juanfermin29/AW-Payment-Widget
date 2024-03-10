@@ -4,7 +4,11 @@ import { fetchContinue } from "../../apis/continue-api/continue-api";
 import { $scrappingContext, $socketContext } from "../../context";
 import { getSocketConnection } from "../../utils";
 import { fetchRunner } from "../../apis";
-import { ScrapperInputRequired, ScrappingProcessState } from "../../models";
+import {
+  ScrapperInputRequired,
+  ScrapperInputSelect,
+  ScrappingProcessState,
+} from "../../models";
 import "./components/index";
 @customElement("aw-scrapping-process")
 export class AwScrappingProcess extends LitElement {
@@ -15,28 +19,9 @@ export class AwScrappingProcess extends LitElement {
 
   constructor() {
     super();
-
-    $scrappingContext.subscribe(value=>{
-     if(value.state != this._pageState){
-        this._pageState = value.state
-     }
-    })
-    $socketContext.subscribe((value) => {
-      if (value.$socket) {
-        value.$socket.on(
-          "ASK_FOR_DATA",
-          (dynamicInputs: ScrapperInputRequired[]) => {
-            $scrappingContext.set({
-              ...$scrappingContext.get(),
-              state: ScrappingProcessState.DynamicInput,
-              dynamicInputs,
-            });
-            this._pageState = ScrappingProcessState.DynamicInput;
-          }
-        );
-        value.$socket.on("ASK_FOR_OPTION", (e: any) => {
-          console.log(e);
-        });
+    $scrappingContext.subscribe((value) => {
+      if (value.state != this._pageState) {
+        this._pageState = value.state;
       }
     });
   }
@@ -45,30 +30,41 @@ export class AwScrappingProcess extends LitElement {
     _changedProperties: PropertyValueMap<any> | Map<PropertyKey, unknown>
   ): Promise<void> {
     super.willUpdate(_changedProperties);
-    if(this._pageState == ScrappingProcessState.Iddle){
+    if (this._pageState == ScrappingProcessState.Iddle) {
       const value = await fetchContinue();
       if (value && !$socketContext.get().$socket) {
         this._connectSockets(value);
-        const algo = await fetchRunner();
-        console.log(algo);
+        await fetchRunner();
       }
     }
   }
 
   render() {
     return html`
-      ${this._pageState == ScrappingProcessState.Iddle
-        ? html` <aw-loading></aw-loading>`
-        : ""}
       <!--  -->
-      ${this._pageState == ScrappingProcessState.Loading
+      ${[ScrappingProcessState.Loading, ScrappingProcessState.Iddle].includes(
+        this._pageState
+      )
         ? html` <aw-loading></aw-loading>`
         : ""}
       <!--  -->
       ${this._pageState == ScrappingProcessState.DynamicInput
         ? html`<aw-input-form></aw-input-form>`
         : ""}
-      ${$scrappingContext.get().state}
+      <!--  -->
+      ${this._pageState == ScrappingProcessState.DynamicSelect
+        ? html`<aw-select-form></aw-select-form>`
+        : ""}
+      <!--  -->
+      ${[
+        ScrappingProcessState.Canceled,
+        ScrappingProcessState.Error,
+        ScrappingProcessState.Approved,
+      ].includes(this._pageState)
+        ? html` <aw-payment-finalized
+            status=${this._pageState}
+          ></aw-payment-finalized>`
+        : ""}
     `;
   }
 

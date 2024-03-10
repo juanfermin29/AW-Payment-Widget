@@ -7,8 +7,11 @@ export interface ScrappingContextData {
 }
 
 export enum ScrappingProcessState {
-  Iddle=1,
-  Loading ,
+  Canceled,
+  Error,
+  Approved,
+  Iddle,
+  Loading,
   DynamicInput,
   DynamicSelect,
   Confirmation,
@@ -19,7 +22,7 @@ export interface ScrapperInputRequired {
   isDynamicLabel?: boolean;
   name: string;
   label: string;
-  type: 'text' | 'password' | 'email';
+  type: "text" | "password" | "email";
   validation?: ScrapperInputValidation[] | any[];
   isSegment?: number;
   timeout?: number;
@@ -32,12 +35,12 @@ interface ScrapperInputValidation {
   message: string;
 }
 
-interface ScrapperInputSelect {
+export interface ScrapperInputSelect {
   value: string;
   text: string;
 }
 
-interface StepMessage {
+export interface StepMessage {
   title?: string;
   subtitle?: string;
   totalSteps?: number;

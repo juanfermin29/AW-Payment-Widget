@@ -30,9 +30,6 @@ export class AwInputForm extends LitElement {
     }
   }
 
-  snackTypeChanged(e: { target: HTMLInputElement }) {
-    console.log(e);
-  }
   render() {
     return html` <form id="my-form" @submit=${this._submit}>
       ${$scrappingContext
