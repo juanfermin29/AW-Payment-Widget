@@ -1,6 +1,6 @@
 export interface ScrappingContextData {
   state: ScrappingProcessState;
-  step?: StepMessage;
+  step?: StepMessageEvent;
   dynamicInputs?: ScrapperInputRequired[];
   dynamicSelect?: ScrapperInputSelect[];
   confirmation?: string;
@@ -15,6 +15,7 @@ export enum ScrappingProcessState {
   DynamicInput,
   DynamicSelect,
   Confirmation,
+  Alert,
   Finalized,
 }
 
@@ -35,12 +36,18 @@ interface ScrapperInputValidation {
   message: string;
 }
 
+export interface  ScrapperSelecStepEvent{
+  title?: string;
+  subtitle?:string;
+  options: ScrapperInputSelect[]
+}
+
 export interface ScrapperInputSelect {
   value: string;
   text: string;
 }
 
-export interface StepMessage {
+export interface StepMessageEvent {
   title?: string;
   subtitle?: string;
   totalSteps?: number;

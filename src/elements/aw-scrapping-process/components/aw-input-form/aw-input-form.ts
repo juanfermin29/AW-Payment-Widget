@@ -1,13 +1,17 @@
 import { LitElement, html } from "lit";
 import { customElement } from "lit/decorators.js";
 import { $scrappingContext, $socketContext } from "../../../../context";
-import { ScrapperInputRequired, ScrappingProcessState } from "../../../../models";
-
+import {
+  ScrapperInputRequired,
+  ScrappingProcessState,
+} from "../../../../models";
+import { TWStyles } from "../../../../../tailwind/twlit";
+import "../../../../components/index";
 @customElement("aw-input-form")
 export class AwInputForm extends LitElement {
-  static styles = [];
+  static styles = [TWStyles];
 
-  _submit(e: any) {
+  _submit(e: SubmitEvent) {
     e.preventDefault();
 
     const inputs = $scrappingContext.get().dynamicInputs!;
@@ -25,22 +29,39 @@ export class AwInputForm extends LitElement {
       $socketContext.get().$socket?.emit("RECEIVE_REQUIRED_DATA", obj);
       $scrappingContext.set({
         state: ScrappingProcessState.Loading,
-        dynamicInputs: []
-      })
+        dynamicInputs: [],
+      });
     }
   }
 
   render() {
-    return html` <form id="my-form" @submit=${this._submit}>
+    return html` <form
+      id="my-form"
+      class=" h-[100%] flex flex-col"
+      @submit=${this._submit}
+    >
       ${$scrappingContext
         .get()
         .dynamicInputs?.map((_input: ScrapperInputRequired) => {
           return html`
-            <label>${_input.label}</label>
-            <input type=${_input.type} name=${_input.name} id=${_input.name} />
+            <input
+              class="pl-4 placeholder:text-gray-400 text-sm font-normal w-full 
+               h-12 bg-transparent rounded-full  outline-none border-[2px] border-[#909090] mb-5"
+              placeholder=${_input.label}
+              type=${_input.type}
+              name=${_input.name}
+              id=${_input.name}
+            />
           `;
         })}
-      <button type="submit">Enviar</button>
+      <div class="flex flex-1"></div>
+      <aw-continue-button
+        class="w-full"
+        type="submit"
+        @button-continue-click=${(e:SubmitEvent) => {
+          this._submit(e)
+        }}
+      ></aw-continue-button>
     </form>`;
   }
 }

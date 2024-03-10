@@ -1,12 +1,19 @@
 import { LitElement, html } from "lit";
-import { customElement } from "lit/decorators.js";
+import { customElement,property ,state} from "lit/decorators.js";
 import { $scrappingContext, $socketContext } from "../../../../context";
 import { ScrappingProcessState } from "../../../../models";
+import { TWStyles } from "../../../../../tailwind/twlit";
+import { StoreController } from "@nanostores/lit";
 
 @customElement("aw-select-form")
 export class AwSelectForm extends LitElement {
-  static styles = [];
+  static styles = [TWStyles];
 
+  @property({attribute: false})
+  @state()
+  private profileController = new StoreController(this, $scrappingContext)
+
+  
   _submit(e: Event) {
     e.preventDefault();
     const select = this.shadowRoot?.querySelector(
@@ -22,8 +29,16 @@ export class AwSelectForm extends LitElement {
   }
 
   render() {
-    return html` <form id="my-select-form">
-      <select id="aw-select-input" @change=${this._submit}>
+    return html` <form id="my-select-form" class="text-center">
+      <span>${this.profileController.value.step?.title}</span>
+      <span>${$scrappingContext.get().step?.subtitle}</span>
+
+      <select
+        class="pl-4 placeholder:text-[#131313] text-sm font-normal w-full 
+               h-12 bg-transparent rounded-full  outline-none border-[2px] border-[#909090]"
+        id="aw-select-input"
+        @change=${this._submit}
+      >
         ${$scrappingContext.get().dynamicSelect?.map((opt) => {
           return html`<option id=${opt.value} value=${opt.value}>
             ${opt.text}

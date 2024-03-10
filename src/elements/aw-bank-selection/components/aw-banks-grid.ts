@@ -13,25 +13,22 @@ export class AwBanksGrid extends LitElement {
 
   render() {
     return html`
-      <div class="grid grid-cols-2 gap-2 border justify-center">
+      <div class="grid grid-cols-2 justify-center">
         ${this.banks?.map((bank: Bank) => {
           return html`
             <div
               @click=${(_: Event) => this._selectBank(_, bank._id)}
-              class="h-24 rounded-lg w-44 mx-auto hover:bg-gray-100 mb-3  flex-col cursor-pointer transition-all duration-200
-           bg-white flex justify-center items-center"
+              class="h-20 w-32 rounded-lg mx-auto hover:bg-gray-100 mb-5 flex-col cursor-pointer transition-all duration-200
+            bg-white flex justify-center items-center"
             >
               <img
                 src=${bancoEstado}
                 class="mx-auto"
                 alt=${bank.name}
-                width="124"
+                width="103"
                 height="24"
               />
             </div>
-          <span>
-          ${bank.name}
-          </span>
           `;
         })}
       </div>

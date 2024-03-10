@@ -8,9 +8,10 @@ import {
   ScrappingProcessState,
 } from "../../models";
 import "./components/index";
+import { TWStyles } from "../../../tailwind/twlit";
 @customElement("aw-scrapping-process")
 export class AwScrappingProcess extends LitElement {
-  static styles = [];
+  static styles = [TWStyles];
 
   @state()
   private _pageState: ScrappingProcessState = ScrappingProcessState.Iddle;
@@ -39,6 +40,7 @@ export class AwScrappingProcess extends LitElement {
 
   render() {
     return html`
+
       <!--  -->
       ${[ScrappingProcessState.Loading, ScrappingProcessState.Iddle].includes(
         this._pageState
@@ -54,6 +56,16 @@ export class AwScrappingProcess extends LitElement {
         ? html`<aw-select-form></aw-select-form>`
         : ""}
       <!--  -->
+
+      ${this._pageState == ScrappingProcessState.Confirmation
+        ? html`<h2>Confirme la transacción</h2>`
+        : ""}
+      <!--  -->
+
+      ${this._pageState == ScrappingProcessState.Alert
+        ? html`<h2>Confirme la transacción</h2>`
+        : ""}
+      <!--  -->
       ${[
         ScrappingProcessState.Canceled,
         ScrappingProcessState.Error,
@@ -63,6 +75,7 @@ export class AwScrappingProcess extends LitElement {
             status=${this._pageState}
           ></aw-payment-finalized>`
         : ""}
+      
     `;
   }
 

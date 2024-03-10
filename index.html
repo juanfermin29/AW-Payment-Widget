@@ -16,7 +16,7 @@
     ></aw-payment-widget>
   </body>
   <script>
-    document.querySelector("aw-payment-widget").widgetTokenPromise = getWidgetToken;
+    document.querySelector("aw-payment-widget").widgetTokenCallback = getWidgetToken;
     const payData = {
       currency: "CLP",
       amount: 1500,

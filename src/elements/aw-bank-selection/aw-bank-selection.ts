@@ -7,6 +7,8 @@ import { $dataContext } from "../../context";
 import { DASHBORAD_API_URL_BASE } from "../../utils";
 import { Task } from "@lit/task";
 import "./components/index";
+import "../../components/index";
+
 @customElement("aw-bank-selection")
 export class AWBankSelection extends LitElement {
   static styles = [css``, TWStyles];
@@ -40,20 +42,24 @@ export class AWBankSelection extends LitElement {
 
   render() {
     return html`
-      <div class="flex flex-col  h-[100%] text-center">
-        ${this._banksTask.render({
-          complete(banks) {
-            return html`
-              <span class="underline font-bold text-base text-[#131313]"
+      ${this._banksTask.render({
+        complete(banks) {
+          return html`
+            <div class=" h-[100%] flex flex-col">
+              <span class="font-bold text-sm text-[#131313] mb-3"
                 >Selecciona tu banco</span
               >
               <aw-banks-grid .banks=${banks?.data}></aw-banks-grid>
-              <div class="flex flex-1 "></div>
-            `;
-          },
-          pending: () => html`<aw-loading></aw-loading>`,
-        })}
-      </div>
+              <div class="flex flex-1 border"></div>
+              <aw-continue-button
+                class="w-full"
+                type="button"
+              ></aw-continue-button>
+            </div>
+          `;
+        },
+        pending: () => html`<aw-loading></aw-loading>`,
+      })}
     `;
   }
 }

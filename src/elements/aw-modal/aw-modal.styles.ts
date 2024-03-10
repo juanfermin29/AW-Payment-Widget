@@ -24,7 +24,6 @@ export const modalStyles = css`
   }
 
   .modal {
-    font-family: Helvetica;
     font-size: 14px;
     padding: 10px 10px 5px 10px;
     background-color: #D9D9D9; 
@@ -35,8 +34,8 @@ export const modalStyles = css`
     padding-top:20px;
     transform: translate(-50%, -50%);
     border-radius: 2px;
-    width: 400px;
-    height:500px;
+    width: 350px;
+    height:570px;
   }
 
   .title {
@@ -64,4 +63,6 @@ export const modalStyles = css`
     background-color: #6c757d;
     border-color: #6c757d;
   }
+
+
 `;
