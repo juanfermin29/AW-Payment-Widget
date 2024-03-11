@@ -1,16 +1,19 @@
 import { LitElement, html } from "lit";
-import { customElement, property } from "lit/decorators.js";
-import { ScrappingProcessState } from "../../../../interfaces";
+import { customElement } from "lit/decorators.js";
+import { $scrappingContext } from "../../../../context";
+import { StoreController } from "@nanostores/lit";
 
 @customElement("aw-payment-finalized")
 export class AwPaymentFinalized extends LitElement {
   static styles = [];
 
-  @property({ type: Number })
-  status!: ScrappingProcessState;
+  private _context = new StoreController(this, $scrappingContext);
 
   render() {
-    return html`<h2>Proceso finalizado</h2>
-      <h3>${this.status}</h3> `;
+    return html`
+      ${this._context.value.dataStack &&
+      html`${JSON.stringify(this._context.value.dataStack)}`}
+      <h3>${this._context.value.state}</h3>
+    `;
   }
 }

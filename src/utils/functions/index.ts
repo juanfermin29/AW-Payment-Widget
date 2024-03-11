@@ -1,0 +1,1 @@
+export * from './on-close-modal/on-close-modal';

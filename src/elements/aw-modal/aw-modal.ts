@@ -1,12 +1,12 @@
-import { LitElement, html, css } from "lit";
+import { LitElement, html } from "lit";
 import { customElement, property } from "lit/decorators.js";
 import { modalStyles } from "./aw-modal.styles";
 import "../index";
 import "./components/index";
 import { StoreController } from "@nanostores/lit";
-import { $dataContext, $scrappingContext, $socketContext } from "../../context";
+import { $dataContext } from "../../context";
 import { TWStyles } from "../../../tailwind/twlit";
-import { ScrappingProcessState } from "../../interfaces";
+import { onCloseModal } from "../../utils/functions";
 
 @customElement("aw-modal")
 export class AwModal extends LitElement {
@@ -48,26 +48,7 @@ export class AwModal extends LitElement {
   }
 
   private _closeModalEvent() {
-    $dataContext.set({
-      amount: 0,
-      currency: "",
-      country: "",
-      clientId: "",
-      loadingState: { isLoading: false },
-      selectedBank: "",
-      widgetToken: "",
-      modalIsVisible: false,
-    });
-
-    $scrappingContext.set({
-      state: ScrappingProcessState.Iddle,
-      confirmation: null,
-      dynamicInputs: [],
-      dynamicSelect: [],
-      step: null,
-    });
-
-    $socketContext.set({$socket: null});
+    onCloseModal();
   }
 }
 

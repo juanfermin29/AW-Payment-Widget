@@ -4,6 +4,7 @@ export interface ScrappingContextData {
   dynamicInputs?: ScrapperInputRequired[]  | null;
   dynamicSelect?: ScrapperInputSelect[]  | null;
   confirmation?: string | null;
+  dataStack?: any
 }
 
 export enum ScrappingProcessState {
@@ -17,6 +18,7 @@ export enum ScrappingProcessState {
   Confirmation,
   Alert,
   Finalized,
+  TimeOut,
 }
 
 export interface ScrapperInputEvent{

@@ -34,7 +34,7 @@ export class AwScrappingProcess extends LitElement {
       const value = await fetchContinue();
       if (value && !$socketContext.get().$socket) {
         this._connectSockets(value);
-        await fetchRunner();
+         await fetchRunner();
       }
     }
   }
@@ -67,6 +67,7 @@ export class AwScrappingProcess extends LitElement {
         ScrappingProcessState.Canceled,
         ScrappingProcessState.Error,
         ScrappingProcessState.Approved,
+        ScrappingProcessState.TimeOut,
       ].includes(this._pageState)
         ? html` <aw-payment-finalized
             status=${this._pageState}

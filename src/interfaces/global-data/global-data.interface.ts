@@ -1,5 +1,3 @@
-import { LoadingState } from "../index";
-
 export interface GlobalData {
   widgetToken: string;
   amount: number;
@@ -8,5 +6,4 @@ export interface GlobalData {
   clientId: string;
   selectedBank: string;
   modalIsVisible: boolean;
-  loadingState: LoadingState;
 }
