@@ -86,9 +86,9 @@ export class AwScrappingProcess extends LitElement {
         ScrappingProcessState.Approved,
         ScrappingProcessState.TimeOut,
       ].includes(this._pageState)
-        ? html` <aw-payment-finalized
-            status=${this._pageState}
-          ></aw-payment-finalized>`
+        ? html` <aw-process-finalized
+            state=${this._pageState}
+          ></aw-process-finalized>`
         : ""}
     `;
   }

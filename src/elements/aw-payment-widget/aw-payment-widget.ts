@@ -87,7 +87,4 @@ export const PaymentWidget = createComponent({
     onactivate: "activate",
     onchange: "change",
   },
-  /*  events: {
-    onWidgetTokenCallback: "widgetTokenCallback",
-  }, */
 });
