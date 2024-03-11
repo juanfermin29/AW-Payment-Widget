@@ -4,8 +4,9 @@ import { modalStyles } from "./aw-modal.styles";
 import "../index";
 import "./components/index";
 import { StoreController } from "@nanostores/lit";
-import { $dataContext } from "../../context";
+import { $dataContext, $scrappingContext, $socketContext } from "../../context";
 import { TWStyles } from "../../../tailwind/twlit";
+import { ScrappingProcessState } from "../../models";
 
 @customElement("aw-modal")
 export class AwModal extends LitElement {
@@ -19,28 +20,7 @@ export class AwModal extends LitElement {
 
   @property({ attribute: false })
   private _context = new StoreController(this, $dataContext);
-  /* 
-  render() {
-    return html` <div
-      class=${`${this._context?.value.modalIsVisible ? "visible" : ""} wrapper`}
-    >
-      <div class="modal pt-20 pb-1 rounded-lg">
-        <aw-close-header
-          @close-modal-event=${this._closeModalEvent}
-        ></aw-close-header>
-        <input
-          placeholder="Usuario"
-          class="pl-4 placeholder:text-[#131313] text-sm font-normal w-full
-          h-12 bg-transparent rounded-full  outline-none border-[2px] border-[#909090] mb-3"
-        />
-        <input
-          placeholder="Usuario"
-          class="pl-4 placeholder:text-[#131313] text-sm font-normal w-full 
-          h-12 bg-transparent rounded-full  outline-none border-[2px] border-[#909090] mb-5"
-        />
-      </div>
-    </div>`;
-  } */
+
   render() {
     return html`
       <div
@@ -52,9 +32,7 @@ export class AwModal extends LitElement {
           <aw-close-header
             @close-modal-event=${this._closeModalEvent}
           ></aw-close-header>
-          <div
-            class="h-full pt-20 pb-1 text-center px-3"
-          >
+          <div class="h-full pt-10 pb-3 text-center px-3">
             ${!this._context?.value.selectedBank
               ? html`
                   <aw-bank-selection
@@ -80,6 +58,16 @@ export class AwModal extends LitElement {
       widgetToken: "",
       modalIsVisible: false,
     });
+
+    $scrappingContext.set({
+      state: ScrappingProcessState.Iddle,
+      confirmation: null,
+      dynamicInputs: [],
+      dynamicSelect: [],
+      step: null,
+    });
+
+    $socketContext.set({$socket: null});
   }
 }
 

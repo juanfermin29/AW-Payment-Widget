@@ -11,7 +11,7 @@ export class AwCloseHeader extends LitElement {
 
     render() {
         return html`
-        <div class="absolute top-[0px] border">
+        <div class="absolute top-[0px]">
         <button type="button" @click=${this._closeModal}>X</button>
         </div>
         `;

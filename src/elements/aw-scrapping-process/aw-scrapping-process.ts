@@ -1,12 +1,10 @@
 import { LitElement, html, PropertyValueMap } from "lit";
 import { customElement, state } from "lit/decorators.js";
 import { fetchContinue } from "../../apis/continue-api/continue-api";
-import { $scrappingContext, $socketContext } from "../../context";
+import { $dataContext, $scrappingContext, $socketContext } from "../../context";
 import { getSocketConnection } from "../../utils";
 import { fetchRunner } from "../../apis";
-import {
-  ScrappingProcessState,
-} from "../../models";
+import { ScrappingProcessState } from "../../models";
 import "./components/index";
 import { TWStyles } from "../../../tailwind/twlit";
 @customElement("aw-scrapping-process")
@@ -29,7 +27,10 @@ export class AwScrappingProcess extends LitElement {
     _changedProperties: PropertyValueMap<any> | Map<PropertyKey, unknown>
   ): Promise<void> {
     super.willUpdate(_changedProperties);
-    if (this._pageState == ScrappingProcessState.Iddle) {
+    if (
+      this._pageState == ScrappingProcessState.Iddle &&
+      $dataContext.get().modalIsVisible
+    ) {
       const value = await fetchContinue();
       if (value && !$socketContext.get().$socket) {
         this._connectSockets(value);
@@ -40,7 +41,6 @@ export class AwScrappingProcess extends LitElement {
 
   render() {
     return html`
-
       <!--  -->
       ${[ScrappingProcessState.Loading, ScrappingProcessState.Iddle].includes(
         this._pageState
@@ -49,21 +49,18 @@ export class AwScrappingProcess extends LitElement {
         : ""}
       <!--  -->
       ${this._pageState == ScrappingProcessState.DynamicInput
-        ? html`<aw-input-form></aw-input-form>`
+        ? html`<aw-input-form ></aw-input-form>`
         : ""}
       <!--  -->
       ${this._pageState == ScrappingProcessState.DynamicSelect
         ? html`<aw-select-form></aw-select-form>`
         : ""}
       <!--  -->
-
-      ${this._pageState == ScrappingProcessState.Confirmation
-        ? html`<h2>Confirme la transacción</h2>`
-        : ""}
-      <!--  -->
-
-      ${this._pageState == ScrappingProcessState.Alert
-        ? html`<h2>Confirme la transacción</h2>`
+      ${[
+        ScrappingProcessState.Confirmation,
+        ScrappingProcessState.Alert,
+      ].includes(this._pageState)
+        ? html`<aw-confirmation-form></aw-confirmation-form>`
         : ""}
       <!--  -->
       ${[
@@ -75,7 +72,6 @@ export class AwScrappingProcess extends LitElement {
             status=${this._pageState}
           ></aw-payment-finalized>`
         : ""}
-      
     `;
   }
 

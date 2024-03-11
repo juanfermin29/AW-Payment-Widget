@@ -2,10 +2,10 @@ import { atom } from "nanostores";
 import { Socket } from "socket.io-client";
 import { $scrappingContext } from "../scrapping-process-context/scrapping-process-context";
 import {
-  ScrapperInputRequired,
   ScrappingProcessState,
   StepMessageEvent,
   ScrapperSelecStepEvent,
+  ScrapperInputEvent,
 } from "../../models";
 
 export const $socketContext = atom<{
@@ -16,16 +16,17 @@ export const $socketContext = atom<{
 $socketContext.subscribe((value) => {
   if (value.$socket) {
     //#region ASK_FOR_DATA
-    value.$socket.on(
-      "ASK_FOR_DATA",
-      (dynamicInputs: ScrapperInputRequired[]) => {
-        $scrappingContext.set({
-          ...$scrappingContext.get(),
-          state: ScrappingProcessState.DynamicInput,
-          dynamicInputs,
-        });
-      }
-    );
+    value.$socket.on("ASK_FOR_DATA", (event: ScrapperInputEvent) => {
+      $scrappingContext.set({
+        ...$scrappingContext.get(),
+        state: ScrappingProcessState.DynamicInput,
+        dynamicInputs: event.inputs,
+        step: {
+          title: event.title,
+          subtitle: event.subtitle,
+        },
+      });
+    });
     //#endregion
 
     //#region ASK_FOR_OPTION
@@ -42,37 +43,47 @@ $socketContext.subscribe((value) => {
     });
     //#endregion
 
-    //#region  UPDATE_STEP
-    value.$socket.on("UPDATE_STEP", (step: StepMessageEvent) => {
+    //#region UPDATE_STEP
+    value.$socket.on("UPDATE_STEP", (step: { step: StepMessageEvent }) => {
+
       $scrappingContext.set({
         ...$scrappingContext.get(),
-        step,
+        step: step.step,
       });
     });
     //#endregion
 
-      
+    //#region SHOW_ALERT
     value.$socket.on("SHOW_ALERT_MESSAGE", (e: any) => {
-      console.log(e);
       $scrappingContext.set({
         ...$scrappingContext.get(),
         state: ScrappingProcessState.Alert,
+        step: {
+          title: e.msg,
+        },
       });
     });
+    //#endregion
+
+    //#region REMOVE_ALERT_MESSAGE
     value.$socket.on("REMOVE_ALERT_MESSAGE", (e: any) => {
-      console.log(e);
       $scrappingContext.set({
         ...$scrappingContext.get(),
         state: ScrappingProcessState.Loading,
-
       });
     });
-    value.$socket.on("ASK_FOR_CONFIRMATION", (e: any) => {
-      console.log(e);
+    //#endregion
+
+    //#region ASK_FOR_CONFIRMATION
+    value.$socket.on("ASK_FOR_CONFIRMATION", (e: { msg: string }) => {
       $scrappingContext.set({
         ...$scrappingContext.get(),
         state: ScrappingProcessState.Confirmation,
+        step: {
+          title: e.msg,
+        },
       });
     });
+    //#endregion
   }
 });

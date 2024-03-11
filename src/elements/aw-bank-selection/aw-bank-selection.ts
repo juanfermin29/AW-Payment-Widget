@@ -50,7 +50,7 @@ export class AWBankSelection extends LitElement {
                 >Selecciona tu banco</span
               >
               <aw-banks-grid .banks=${banks?.data}></aw-banks-grid>
-              <div class="flex flex-1 border"></div>
+              <div class="flex flex-1"></div>
               <aw-continue-button
                 class="w-full"
                 type="button"

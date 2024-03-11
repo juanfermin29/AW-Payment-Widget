@@ -40,9 +40,9 @@ export class AWPaymentWidget extends LitElement {
         @click=${this.fetchToken}
       >
         ${this._loading
-          ? html`<div class="animate-spin h-3 w-3 border "></div>`
+          ? html`<div class="animate-spin h-3 w-3 "></div>`
           : ""}
-        <span> Pagar v6 R</span>
+        <span> Pagar</span>
       </button>
       <aw-modal country=${this.country!} currency=${this.currency!}></aw-modal>
     `;
