@@ -1,4 +1,4 @@
-import { LitElement, PropertyValueMap, html, css } from "lit";
+import { LitElement, PropertyValueMap, html } from "lit";
 import { customElement, property, query } from "lit/decorators.js";
 import { asyncReplace } from "lit/directives/async-replace.js";
 import { $scrappingContext, $socketContext } from "../../../../context";

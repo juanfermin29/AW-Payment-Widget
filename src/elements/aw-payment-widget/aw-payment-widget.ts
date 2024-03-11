@@ -79,7 +79,7 @@ declare global {
   }
 }
 
-export const MyReactPaymentWidget = createComponent({
+export const PaymentWidget = createComponent({
   tagName: "aw-payment-widget",
   elementClass: AWPaymentWidget,
   react: React,

@@ -71,7 +71,7 @@ $socketContext.subscribe((value) => {
     //#endregion
 
     //#region REMOVE_ALERT_MESSAGE
-    value.$socket.on("REMOVE_ALERT_MESSAGE", (e: any) => {
+    value.$socket.on("REMOVE_ALERT_MESSAGE", (_) => {
       $scrappingContext.set({
         ...$scrappingContext.get(),
         state: ScrappingProcessState.Loading,
