@@ -105,7 +105,8 @@ export class AwInputForm extends LitElement {
                       .fill(1)
                       .map((_: number, index: number) => {
                         return html` <input
-                          class="pl-4 placeholder:text-gray-400 placeholder:capitalize text-sm font-normal w-10  h-14 
+                          maxlength="1"
+                          class="pl-4 placeholder:text-gray-400 placeholder:capitalize text-sm font-bold w-10  h-14 
                           bg-transparent rounded-md  outline-none border-[1px] border-[#909090]  mx-auto"
                           type=${input.type}
                           id=${`${input.name}${index + 1}`}
@@ -116,7 +117,7 @@ export class AwInputForm extends LitElement {
               : html`
                   <input
                     class="pl-4 placeholder:text-gray-400 placeholder:capitalize text-sm font-normal w-full 
-                     h-12 bg-transparent rounded-full  outline-none border-[2px] border-[#909090] mb-2"
+                     h-12 bg-transparent rounded-full  outline-none border-[2px] border-[#909090] mb-3.5"
                     placeholder=${input.label}
                     type=${input.type}
                     name=${input.name}

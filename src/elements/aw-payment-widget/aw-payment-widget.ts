@@ -1,15 +1,15 @@
-import { LitElement, css, html } from "lit";
+import { LitElement, html } from "lit";
 import { customElement, property, state } from "lit/decorators.js";
 import { TWStyles } from "../../../tailwind/twlit";
-import "../aw-modal/aw-modal";
 import { $dataContext } from "../../context";
 import { awPaymentWidgetSchema } from "../../utils";
 import * as React from "react";
 import { createComponent } from "@lit/react";
+import "../aw-modal/aw-modal";
 
 @customElement("aw-payment-widget")
 export class AWPaymentWidget extends LitElement {
-  static styles = [css``, TWStyles];
+  static styles = [TWStyles];
 
   @property({ type: String })
   country?: string;
@@ -39,9 +39,7 @@ export class AWPaymentWidget extends LitElement {
         items-center hover:bg-blue-600 transition-all `}
         @click=${this.fetchToken}
       >
-        ${this._loading
-          ? html`<div class="animate-spin h-3 w-3 "></div>`
-          : ""}
+        ${this._loading ? html`<div class="animate-spin h-3 w-3 "></div>` : ""}
         <span> Pagar</span>
       </button>
       <aw-modal country=${this.country!} currency=${this.currency!}></aw-modal>
@@ -86,8 +84,8 @@ export const MyReactPaymentWidget = createComponent({
   elementClass: AWPaymentWidget,
   react: React,
   events: {
-    onactivate: 'activate',
-    onchange: 'change',
+    onactivate: "activate",
+    onchange: "change",
   },
   /*  events: {
     onWidgetTokenCallback: "widgetTokenCallback",

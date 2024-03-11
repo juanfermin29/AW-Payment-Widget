@@ -1,28 +1,32 @@
-import { LitElement, PropertyValueMap, html } from "lit";
-import { customElement, property, state } from "lit/decorators.js";
+import { LitElement, PropertyValueMap, html, css } from "lit";
+import { customElement, property, query } from "lit/decorators.js";
 import { asyncReplace } from "lit/directives/async-replace.js";
 import { $scrappingContext, $socketContext } from "../../../../context";
-import { ScrappingProcessState } from "../../../../interfaces";
 import { TWStyles } from "../../../../../tailwind/twlit";
+import { ScrappingProcessState } from "../../../../interfaces";
+import { timeFormStyles } from "./aw-timeout-form.style";
+
+
 async function* countDown(count: number) {
   while (count > 0) {
-    yield count--;
+    count--;
+    const totalMinutes = Math.floor(count/60);
+    const remainingSeconds = count%60;
+    yield `${totalMinutes.toString().padStart(2,'0')}:${remainingSeconds.toString().padStart(2,"0")}`
     await new Promise((r) => setTimeout(r, 1000));
   }
 }
 
 @customElement("aw-time-out")
 export class AwTimeOut extends LitElement {
-  static styles = [TWStyles];
-
-  constructor() {
-    super();
-  }
+  static styles = [timeFormStyles, TWStyles];
 
   private _fireTimeout?: ReturnType<typeof setTimeout>;
 
   @property({ type: Number })
   timeout?: number;
+
+  @query("span") spanLoader: HTMLSpanElement | undefined;
 
   disconnectedCallback() {
     clearTimeout(this._fireTimeout);
@@ -32,6 +36,17 @@ export class AwTimeOut extends LitElement {
   protected updated(
     _changedProperties: PropertyValueMap<any> | Map<PropertyKey, unknown>
   ): void {
+    this._setAnimation();
+    this._setTimeouthandler();
+  }
+
+  private _setAnimation() {
+    this.spanLoader!.style.animation = `prixClipFix ${this
+      .timeout!}s infinite linear`;
+    this.spanLoader!.style.animationIterationCount = "1";
+  }
+
+  private _setTimeouthandler() {
     clearTimeout(this._fireTimeout);
     this._fireTimeout = setTimeout(() => {
       $socketContext.get().$socket?.disconnect();
@@ -42,8 +57,12 @@ export class AwTimeOut extends LitElement {
   render() {
     return html`
       ${this.timeout &&
-      html`<span class="text-green-600 font-bold: ">Tiempo restante: </span>
-        <span>${asyncReplace(countDown(this.timeout))}</span>.`}
+      html`<div class="flex flex-col text-center justify-center my-5">
+        <span class="aw-timeout-loader mx-auto"></span>
+        <small class="text-[#747474] font-normal text-xs">
+          ${asyncReplace(countDown(this.timeout))}
+        </small>
+      </div> `}
     `;
   }
 }

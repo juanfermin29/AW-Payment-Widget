@@ -58,7 +58,7 @@ export class AWBankSelection extends LitElement {
             </div>
           `;
         },
-        pending: () => html`<aw-loading></aw-loading>`,
+        pending: () => html`<aw-loading loadWidth=${0}></aw-loading>`,
       })}
     `;
   }

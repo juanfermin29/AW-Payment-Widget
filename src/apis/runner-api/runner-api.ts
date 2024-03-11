@@ -25,8 +25,6 @@ export const fetchRunner = async () => {
     );
     if (runnerResponse.ok) {
       const data: ScrapperResponse = await runnerResponse.json();
-      console.log(data.dataStack);
-      
       $scrappingContext.set({
         ...$scrappingContext.get(),
         state: data.status,

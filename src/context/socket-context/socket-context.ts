@@ -45,10 +45,15 @@ $socketContext.subscribe((value) => {
 
     //#region UPDATE_STEP
     value.$socket.on("UPDATE_STEP", (step: { step: StepMessageEvent }) => {
-
+      const {finalizedSteps,subtitle,title,totalSteps} = step.step;
       $scrappingContext.set({
         ...$scrappingContext.get(),
-        step: step.step,
+        step: {
+          finalizedSteps:  finalizedSteps,
+          totalSteps:  totalSteps,
+          subtitle,
+          title
+        },
       });
     });
     //#endregion

@@ -7,6 +7,7 @@ import { fetchRunner } from "../../apis";
 import { ScrappingProcessState } from "../../interfaces";
 import "./components/index";
 import { TWStyles } from "../../../tailwind/twlit";
+import { StoreController } from "@nanostores/lit";
 @customElement("aw-scrapping-process")
 export class AwScrappingProcess extends LitElement {
   static styles = [TWStyles];
@@ -14,11 +15,27 @@ export class AwScrappingProcess extends LitElement {
   @state()
   private _pageState: ScrappingProcessState = ScrappingProcessState.Iddle;
 
+  @state()
+  private loadWidth: number = 1;
+
+  private _context = new StoreController(this, $scrappingContext);
+
   constructor() {
     super();
     $scrappingContext.subscribe((value) => {
       if (value.state != this._pageState) {
         this._pageState = value.state;
+      }
+      if (
+        this._context.value.step?.finalizedSteps &&
+        this._context.value.step.totalSteps
+      ) {
+        this.loadWidth = Math.floor(
+          (((this._context.value.step?.finalizedSteps * 100) /
+            this._context.value.step.totalSteps) *
+            224) /
+            100
+        );
       }
     });
   }
@@ -34,7 +51,7 @@ export class AwScrappingProcess extends LitElement {
       const value = await fetchContinue();
       if (value && !$socketContext.get().$socket) {
         this._connectSockets(value);
-         await fetchRunner();
+        await fetchRunner();
       }
     }
   }
@@ -45,11 +62,11 @@ export class AwScrappingProcess extends LitElement {
       ${[ScrappingProcessState.Loading, ScrappingProcessState.Iddle].includes(
         this._pageState
       )
-        ? html` <aw-loading></aw-loading>`
+        ? html`<aw-loading loadWidth=${this.loadWidth}></aw-loading>`
         : ""}
       <!--  -->
       ${this._pageState == ScrappingProcessState.DynamicInput
-        ? html`<aw-input-form ></aw-input-form>`
+        ? html`<aw-input-form></aw-input-form>`
         : ""}
       <!--  -->
       ${this._pageState == ScrappingProcessState.DynamicSelect
