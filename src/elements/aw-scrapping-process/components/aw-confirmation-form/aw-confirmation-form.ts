@@ -2,7 +2,7 @@ import { LitElement, html } from "lit";
 import { customElement, property, state } from "lit/decorators.js";
 import { TWStyles } from "../../../../../tailwind/twlit";
 import { $scrappingContext, $socketContext } from "../../../../context";
-import { ScrappingProcessState } from "../../../../models";
+import { ScrappingProcessState } from "../../../../interfaces";
 
 @customElement("aw-confirmation-form")
 export class AwConfirmationForm extends LitElement {

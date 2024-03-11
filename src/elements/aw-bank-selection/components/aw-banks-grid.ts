@@ -1,7 +1,7 @@
 import { LitElement, html } from "lit";
 import { customElement, property } from "lit/decorators.js";
 import { TWStyles } from "../../../../tailwind/twlit";
-import { Bank } from "../../../models";
+import { Bank } from "../../../interfaces";
 import { $dataContext } from "../../../context";
 import bancoEstado from '../../../assets/bancoestado.svg'
 @customElement("aw-banks-grid")

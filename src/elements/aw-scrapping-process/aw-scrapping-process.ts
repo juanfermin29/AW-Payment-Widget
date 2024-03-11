@@ -4,7 +4,7 @@ import { fetchContinue } from "../../apis/continue-api/continue-api";
 import { $dataContext, $scrappingContext, $socketContext } from "../../context";
 import { getSocketConnection } from "../../utils";
 import { fetchRunner } from "../../apis";
-import { ScrappingProcessState } from "../../models";
+import { ScrappingProcessState } from "../../interfaces";
 import "./components/index";
 import { TWStyles } from "../../../tailwind/twlit";
 @customElement("aw-scrapping-process")

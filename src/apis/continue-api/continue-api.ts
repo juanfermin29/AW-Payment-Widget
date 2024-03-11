@@ -1,5 +1,5 @@
 import { $dataContext } from "../../context";
-import { ContinueApiResponse } from "../../models";
+import { ContinueApiResponse } from "../../interfaces";
 
 export const fetchContinue = async (): Promise<string> => {
   try {

@@ -4,31 +4,32 @@ import { $scrappingContext, $socketContext } from "../../../../context";
 import {
   ScrapperInputRequired,
   ScrappingProcessState,
-} from "../../../../models";
+} from "../../../../interfaces";
 import { TWStyles } from "../../../../../tailwind/twlit";
 import "../../../../components/index";
-
 import img from "../../../../assets/bancoestado.svg";
 import { StoreController } from "@nanostores/lit";
+
 @customElement("aw-input-form")
 export class AwInputForm extends LitElement {
   static styles = [TWStyles];
 
-  private profileController = new StoreController(this, $scrappingContext);
+  private _context = new StoreController(this, $scrappingContext);
 
-  _submit(e: SubmitEvent) {
+  private _submit(e: SubmitEvent) {
     e.preventDefault();
 
-    const inputs = $scrappingContext.get().dynamicInputs!;
+    const inputs = this._context.value.dynamicInputs!;
     let obj = {};
+
     if (inputs.length > 0) {
       for (let index = 0; index < inputs.length; index++) {
-        const input = this.shadowRoot?.querySelector(
-          `#${inputs[index].name}`
-        ) as HTMLInputElement;
-        obj = Object.assign(obj, {
-          [input.id]: input.value,
-        });
+        if (inputs[index].isSegment) {
+          obj = this._handleSegmentInput(inputs[index].name, obj,inputs[index].isSegment ?? 0);
+          console.log(obj);
+        } else {
+          obj = this._handleCompleteInput(inputs[index].name, obj);
+        }
       }
 
       $socketContext.get().$socket?.emit("RECEIVE_REQUIRED_DATA", obj);
@@ -39,39 +40,79 @@ export class AwInputForm extends LitElement {
     }
   }
 
+  private _handleSegmentInput(id: string, obj: any, segments: number) {
+    let value = "";
+    for (let index = 0; index < segments; index++) {
+    const input = this.shadowRoot?.querySelector(`#${id}${index+1}`) as HTMLInputElement;
+      value = value+input.value
+    }
+    return Object.assign(obj, {
+      [id]: value,
+    }); 
+  }
+
+  private _handleCompleteInput(id: string, obj: any) {
+    const input = this.shadowRoot?.querySelector(`#${id}`) as HTMLInputElement;
+    return Object.assign(obj, {
+      [id]: input.value,
+    });
+  }
+
   render() {
     return html` <form
       id="my-form"
       class=" h-[100%] flex flex-col justify-center"
       @submit=${this._submit}
     >
-      ${!this.profileController.value?.step?.title?.length
-        ? html`<img src=${img} height="55" width="100" class="mb-4 mx-auto" />`
-        : html`
-        <div class="mb-5">
-        <span class="text-[#131313] font-bold text-xs"
-              >${this.profileController.value?.step?.title}</span
-            >
-            <small class="text-[#474747] font-normal text-xs"
-              >${this.profileController.value?.step?.subtitle}</small
-            >
-        </div>
-          `}
-      ${$scrappingContext
-        .get()
-        .dynamicInputs?.map((_input: ScrapperInputRequired) => {
+      <div class="mb-5 flex flex-col text-center">
+        ${!this._context.value?.step?.title?.length
+          ? html`<img
+              src=${img}
+              height="55"
+              width="100"
+              class="mb-4 mx-auto"
+            />`
+          : html`
+              <span class="text-[#131313] font-bold text-xs"
+                >${this._context.value?.step?.title}</span
+              >
+              <small class="text-[#474747] font-normal text-xs"
+                >${this._context.value?.step?.subtitle}</small
+              >
+            `}
+      </div>
+
+      <!--  -->
+      ${this._context.value.dynamicInputs?.map(
+        (input: ScrapperInputRequired) => {
           return html`
-            <input
-              class="pl-4 placeholder:text-gray-400 placeholder:capitalize text-sm font-normal w-full 
+            ${input.isSegment
+              ? html`
+                  ${Array(input.isSegment)
+                    .fill(1)
+                    .map((_: number, index: number) => {
+                      return html`<input
+                        type=${input.type}
+                        id=${`${input.name}${index + 1}`}
+                      />`;
+                    })}
+                `
+              : html`
+                  <input
+                    class="pl-4 placeholder:text-gray-400 placeholder:capitalize text-sm font-normal w-full 
                h-12 bg-transparent rounded-full  outline-none border-[2px] border-[#909090] mb-5"
-              placeholder=${_input.label}
-              type=${_input.type}
-              name=${_input.name}
-              id=${_input.name}
-            />
+                    placeholder=${input.label}
+                    type=${input.type}
+                    name=${input.name}
+                    id=${input.name}
+                  />
+                `}
           `;
-        })}
-      ${!this.profileController.value?.step?.title?.length
+        }
+      )}
+
+      <!--  -->
+      ${!this._context.value?.step?.title?.length
         ? html`
             <div class="bg-[#C6C6C6] mx-5 py-1 px-0.5 rounded-md">
               <span class="text-[#474747] text-xs break-words">

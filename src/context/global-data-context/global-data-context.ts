@@ -1,5 +1,5 @@
 import { map } from "nanostores";
-import { GlobalData } from "../../models";
+import { GlobalData } from "../../interfaces";
 export const $dataContext = map<GlobalData>({
     amount: 0,
     country: '',

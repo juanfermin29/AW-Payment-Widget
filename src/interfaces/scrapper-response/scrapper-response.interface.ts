@@ -1,4 +1,4 @@
-import { ScrappingProcessState } from "../scrapping-context-data/scrapping-context-data";
+import { ScrappingProcessState } from "../scrapping-context-data/scrapping-context-data.interface";
 
 export interface ScrapperResponse {
   status: ScrappingProcessState;

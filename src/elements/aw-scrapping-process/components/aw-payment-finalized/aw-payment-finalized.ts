@@ -1,6 +1,6 @@
 import { LitElement, html } from "lit";
 import { customElement, property } from "lit/decorators.js";
-import { ScrappingProcessState } from "../../../../models";
+import { ScrappingProcessState } from "../../../../interfaces";
 
 @customElement("aw-payment-finalized")
 export class AwPaymentFinalized extends LitElement {

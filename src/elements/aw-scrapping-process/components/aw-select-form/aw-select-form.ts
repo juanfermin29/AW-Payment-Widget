@@ -1,7 +1,7 @@
 import { LitElement, html } from "lit";
 import { customElement, property, state } from "lit/decorators.js";
 import { $scrappingContext, $socketContext } from "../../../../context";
-import { ScrappingProcessState } from "../../../../models";
+import { ScrappingProcessState } from "../../../../interfaces";
 import { TWStyles } from "../../../../../tailwind/twlit";
 import { StoreController } from "@nanostores/lit";
 

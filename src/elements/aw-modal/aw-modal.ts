@@ -6,7 +6,7 @@ import "./components/index";
 import { StoreController } from "@nanostores/lit";
 import { $dataContext, $scrappingContext, $socketContext } from "../../context";
 import { TWStyles } from "../../../tailwind/twlit";
-import { ScrappingProcessState } from "../../models";
+import { ScrappingProcessState } from "../../interfaces";
 
 @customElement("aw-modal")
 export class AwModal extends LitElement {

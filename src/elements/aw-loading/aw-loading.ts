@@ -7,7 +7,8 @@ export class AwLoading extends LitElement {
 
   render() {
     return html`<div
-      class="flex flex-col justify-center text-center items-center" >
+      class="flex flex-col justify-center text-center items-center"
+    >
       <span class="text-[#131313] font-bold text-xs">Procesando pago</span>
       <small class="text-[#474747] font-normal text-xs"
         >Esto demora unos segundos</small

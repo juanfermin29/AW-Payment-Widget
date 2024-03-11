@@ -6,7 +6,7 @@ import {
   StepMessageEvent,
   ScrapperSelecStepEvent,
   ScrapperInputEvent,
-} from "../../models";
+} from "../../interfaces";
 
 export const $socketContext = atom<{
   $socket: Socket | null;
