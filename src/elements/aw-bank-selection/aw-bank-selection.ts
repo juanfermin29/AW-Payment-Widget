@@ -46,7 +46,7 @@ export class AWBankSelection extends LitElement {
         complete(banks) {
           return html`
             <div class=" h-[100%] flex flex-col">
-              <span class="font-bold text-sm text-[#131313] mb-3"
+              <span class="font-bold text-lg text-[#474747] mb-3"
                 >Selecciona tu banco</span
               >
               <aw-banks-grid .banks=${banks?.data}></aw-banks-grid>

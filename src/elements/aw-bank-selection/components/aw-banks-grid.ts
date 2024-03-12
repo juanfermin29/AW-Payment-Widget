@@ -18,8 +18,9 @@ export class AwBanksGrid extends LitElement {
           return html`
             <div
               @click=${(_: Event) => this._selectBank(_, bank._id)}
-              class="h-20 w-32 rounded-lg mx-auto hover:bg-gray-100 mb-5 flex-col cursor-pointer transition-all duration-200
-            bg-white flex justify-center items-center"
+              class="h-20 w-32 rounded-lg mx-auto hover:shadow-lg border
+               border-gray-300 mb-5 flex-col cursor-pointer transition-all duration-200
+              flex justify-center items-center"
             >
               <img
                 src=${bancoEstado}

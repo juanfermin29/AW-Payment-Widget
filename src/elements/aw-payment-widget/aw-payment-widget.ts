@@ -5,6 +5,7 @@ import { $dataContext } from "../../context";
 import { awPaymentWidgetSchema } from "../../utils";
 import * as React from "react";
 import { createComponent } from "@lit/react";
+import { until } from "lit/directives/until.js";
 import "../aw-modal/aw-modal";
 
 @customElement("aw-payment-widget")
@@ -17,6 +18,12 @@ export class AWPaymentWidget extends LitElement {
   @property({ type: String })
   currency?: string;
 
+  @property({ type: String })
+  text?: string;
+
+  @property({ type: String })
+  buttonClass?: string = "";
+
   @property()
   widgetTokenCallback?: () => Promise<string> = undefined;
 
@@ -27,6 +34,8 @@ export class AWPaymentWidget extends LitElement {
     awPaymentWidgetSchema.validateSync({
       currency: this.currency,
       country: this.country,
+      text: this.text,
+      widgetTokenCallback: this.widgetTokenCallback,
     });
   }
 
@@ -35,12 +44,17 @@ export class AWPaymentWidget extends LitElement {
     return html`
       <button
         ?disabled=${this._loading}
-        class=${` bg-blue-500 px-5 py-2 text-xl text-white rounded flex flex-row
-        items-center hover:bg-blue-600 transition-all `}
+        class=${until(this.buttonClass, "")}
         @click=${this.fetchToken}
       >
-        ${this._loading ? html`<div class="animate-spin h-3 w-3 "></div>` : ""}
-        <span> Pagar</span>
+      <div class="flex flex-row items-center">
+      ${this._loading
+          ? html`<div
+              class="animate-spin h-3 w-3 border-4 rounded-full border-gray-200 "
+            ></div>`
+          : ""}
+        <span>${this.text}</span>
+      </div>
       </button>
       <aw-modal country=${this.country!} currency=${this.currency!}></aw-modal>
     `;
@@ -66,7 +80,7 @@ export class AWPaymentWidget extends LitElement {
       this._loading = false;
     } else {
       throw new Error(
-        "widgetTokenCallback doesnt exist! " +
+        "widgetTokenCallback not found! " +
           JSON.stringify(this.widgetTokenCallback)
       );
     }

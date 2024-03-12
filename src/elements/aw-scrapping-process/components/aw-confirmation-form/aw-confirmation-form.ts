@@ -3,7 +3,7 @@ import { customElement, property, state } from "lit/decorators.js";
 import { TWStyles } from "../../../../../tailwind/twlit";
 import { $scrappingContext, $socketContext } from "../../../../context";
 import { ScrappingProcessState } from "../../../../interfaces";
-
+import alert from "../../../../assets/alert.png";
 @customElement("aw-confirmation-form")
 export class AwConfirmationForm extends LitElement {
   static styles = [TWStyles];
@@ -17,27 +17,28 @@ export class AwConfirmationForm extends LitElement {
   scrapperState?: ScrappingProcessState = $scrappingContext.get().state;
 
   render() {
-    
     return html`
-      <div class="flex flex-col text-center">
+      <div class="flex flex-col text-center justify-center">
+        <img src=${alert} height="100" width="100" class="mx-auto" />
         <span class="text-bold text-lg mb-3"> ${this.confirmationMsg} </span>
+        <div class="flex flex-1"></div>
         ${this.scrapperState == ScrappingProcessState.Confirmation
-          ? html` <div class="flex flex-row justify-center gap-2">
+          ? html` <div class="flex flex-col justify-center gap-2">
               <button
                 type="button"
-                class="text-white  h-7 text-center rounded-full w-full
-               bg-[#E42A3C] font-bold text-base"
-                @click=${(_: Event) => this.handleConfirmation(false)}
-              >
-                Cancelar
-              </button>
-              <button
-                type="button"
-                class="bg-[#131313]  h-7 text-center rounded-full w-full
-               text-[#E5ECEF] font-bold text-base "
+                class="text-gray-800 h-10  bg-blue-200 text-center rounded-full w-full
+                font-bold text-base "
                 @click=${(_: Event) => this.handleConfirmation(true)}
               >
                 Confirmar
+              </button>
+
+              <button
+                type="button"
+                class="text-gray-800  h-10  text-center rounded-full w-full bg-red-200 font-bold text-base"
+                @click=${(_: Event) => this.handleConfirmation(false)}
+              >
+                Cancelar
               </button>
             </div>`
           : ""}

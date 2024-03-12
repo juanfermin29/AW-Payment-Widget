@@ -77,15 +77,15 @@ export class AwInputForm extends LitElement {
         ${!this._context.value?.step?.title?.length
           ? html`<img
               src=${img}
-              height="55"
-              width="100"
+              height="80"
+              width="170"
               class="mb-4 mx-auto"
             />`
           : html`
-              <span class="text-[#131313] font-bold text-xs"
+              <span class="text-[#474747] font-bold text-lg"
                 >${this._context.value?.step?.title}</span
               >
-              <small class="text-[#474747] font-normal text-xs"
+              <small class="text-gray-400 font-normal text-sm"
                 >${this._context.value?.step?.subtitle}</small
               >
             `}
@@ -131,8 +131,8 @@ export class AwInputForm extends LitElement {
       <!--  -->
       ${!this._context.value?.step?.title?.length
         ? html`
-            <div class="bg-[#C6C6C6] mx-5 py-1 px-0.5 rounded-md">
-              <span class="text-[#474747] text-xs break-words">
+            <div class="bg-gray-200 mx-5 py-1 px-0.5 rounded-md">
+              <span class="text-[#474747] text-xs  break-words">
                 Los datos son encriptados con TLS 1.2 y se utilizarán para pagar
                 esta única vez.
               </span>

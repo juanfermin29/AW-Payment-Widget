@@ -8,6 +8,7 @@ import { ScrappingProcessState } from "../../interfaces";
 import "./components/index";
 import { TWStyles } from "../../../tailwind/twlit";
 import { StoreController } from "@nanostores/lit";
+import { animate, fadeOut, fadeInSlow } from "@lit-labs/motion";
 @customElement("aw-scrapping-process")
 export class AwScrappingProcess extends LitElement {
   static styles = [TWStyles];
@@ -62,22 +63,55 @@ export class AwScrappingProcess extends LitElement {
       ${[ScrappingProcessState.Loading, ScrappingProcessState.Iddle].includes(
         this._pageState
       )
-        ? html`<aw-loading loadWidth=${this.loadWidth}></aw-loading>`
+        ? html`<aw-loading
+            ${animate({
+              keyframeOptions: {
+                duration: 200,
+                fill: "both",
+              },
+              in: fadeInSlow,
+            })}
+            loadWidth=${this.loadWidth}
+          ></aw-loading>`
         : ""}
       <!--  -->
       ${this._pageState == ScrappingProcessState.DynamicInput
-        ? html`<aw-input-form></aw-input-form>`
+        ? html`<aw-input-form
+            ${animate({
+              keyframeOptions: {
+                duration: 200,
+                fill: "both",
+              },
+              in: fadeInSlow,
+            })}
+          ></aw-input-form>`
         : ""}
       <!--  -->
       ${this._pageState == ScrappingProcessState.DynamicSelect
-        ? html`<aw-select-form></aw-select-form>`
+        ? html`<aw-select-form
+            ${animate({
+              keyframeOptions: {
+                duration: 200,
+                fill: "both",
+              },
+              in: fadeInSlow,
+            })}
+          ></aw-select-form>`
         : ""}
       <!--  -->
       ${[
         ScrappingProcessState.Confirmation,
         ScrappingProcessState.Alert,
       ].includes(this._pageState)
-        ? html`<aw-confirmation-form></aw-confirmation-form>`
+        ? html`<aw-confirmation-form
+            ${animate({
+              keyframeOptions: {
+                duration: 200,
+                fill: "both",
+              },
+              in: fadeInSlow,
+            })}
+          ></aw-confirmation-form>`
         : ""}
       <!--  -->
       ${[
@@ -87,6 +121,13 @@ export class AwScrappingProcess extends LitElement {
         ScrappingProcessState.TimeOut,
       ].includes(this._pageState)
         ? html` <aw-process-finalized
+            ${animate({
+              keyframeOptions: {
+                duration: 200,
+                fill: "both",
+              },
+              in: fadeInSlow,
+            })}
             state=${this._pageState}
           ></aw-process-finalized>`
         : ""}

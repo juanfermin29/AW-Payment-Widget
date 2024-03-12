@@ -7,6 +7,7 @@ import { StoreController } from "@nanostores/lit";
 import { $dataContext } from "../../context";
 import { TWStyles } from "../../../tailwind/twlit";
 import { onCloseModal } from "../../utils/functions";
+import { animate, fadeInSlow } from "@lit-labs/motion";
 
 @customElement("aw-modal")
 export class AwModal extends LitElement {
@@ -28,7 +29,16 @@ export class AwModal extends LitElement {
           this._context?.value.modalIsVisible ? "visible" : ""
         } wrapper`}
       >
-        <div class="modal  rounded-lg ">
+        <div
+          ${animate({
+            keyframeOptions: {
+              duration: 250,
+              fill: "both",
+            },
+            in: fadeInSlow,
+          })}
+          class="modal shadow-xl"
+        >
           <aw-close-header
             @close-modal-event=${this._closeModalEvent}
           ></aw-close-header>

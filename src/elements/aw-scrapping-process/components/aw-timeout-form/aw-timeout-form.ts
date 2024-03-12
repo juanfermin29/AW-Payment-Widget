@@ -6,13 +6,14 @@ import { TWStyles } from "../../../../../tailwind/twlit";
 import { ScrappingProcessState } from "../../../../interfaces";
 import { timeFormStyles } from "./aw-timeout-form.style";
 
-
 async function* countDown(count: number) {
   while (count > 0) {
     count--;
-    const totalMinutes = Math.floor(count/60);
-    const remainingSeconds = count%60;
-    yield `${totalMinutes.toString().padStart(2,'0')}:${remainingSeconds.toString().padStart(2,"0")}`
+    const totalMinutes = Math.floor(count / 60);
+    const remainingSeconds = count % 60;
+    yield `${totalMinutes.toString().padStart(2, "0")}:${remainingSeconds
+      .toString()
+      .padStart(2, "0")}`;
     await new Promise((r) => setTimeout(r, 1000));
   }
 }

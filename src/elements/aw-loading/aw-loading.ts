@@ -12,7 +12,7 @@ export class AwLoading extends LitElement {
     return html`<div
       class="flex flex-col justify-center text-center items-center"
     >
-      <span class="text-[#131313] font-bold text-xl">Procesando pago</span>
+      <span class="text-[#474747] font-bold text-lg">Procesando pago</span>
       <small class="text-[#474747] font-normal text-sm"
         >Esto demora unos segundos</small
       >
@@ -32,7 +32,7 @@ export class AwLoading extends LitElement {
         ></div>
         <div
           style="width:${224 - this.loadWidth}px;"
-          class=${`h-2 bg-black  rounded-tr-full rounded-br-full `}
+          class=${`h-2 bg-[#131313]  rounded-tr-full rounded-br-full `}
         ></div>
       </div>
     </div>`;

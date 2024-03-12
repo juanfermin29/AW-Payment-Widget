@@ -3,6 +3,7 @@ import { customElement, property } from "lit/decorators.js";
 import { TWStyles } from "../../../tailwind/twlit";
 import { ScrappingProcessState } from "../../interfaces";
 import "./components/index";
+
 @customElement("aw-process-finalized")
 export class AwProcessFinalized extends LitElement {
   static styles = [TWStyles];
