@@ -7,7 +7,7 @@ import { StoreController } from "@nanostores/lit";
 import { $dataContext } from "../../context";
 import { TWStyles } from "../../../tailwind/twlit";
 import { onCloseModal } from "../../utils/functions";
-import { animate, fadeInSlow } from "@lit-labs/motion";
+import { animate, fadeIn } from "@lit-labs/motion";
 
 @customElement("aw-modal")
 export class AwModal extends LitElement {
@@ -35,7 +35,7 @@ export class AwModal extends LitElement {
               duration: 250,
               fill: "both",
             },
-            in: fadeInSlow,
+            in: fadeIn,
           })}
           class="modal shadow-xl"
         >

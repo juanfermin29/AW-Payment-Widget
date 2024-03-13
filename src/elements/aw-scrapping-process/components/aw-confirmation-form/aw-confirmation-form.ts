@@ -26,7 +26,7 @@ export class AwConfirmationForm extends LitElement {
           ? html` <div class="flex flex-col justify-center gap-2">
               <button
                 type="button"
-                class="text-gray-800 h-10  bg-blue-200 text-center rounded-full w-full
+                class="text-gray-800 h-10  border text-center rounded-full w-full
                 font-bold text-base "
                 @click=${(_: Event) => this.handleConfirmation(true)}
               >
@@ -35,7 +35,7 @@ export class AwConfirmationForm extends LitElement {
 
               <button
                 type="button"
-                class="text-gray-800  h-10  text-center rounded-full w-full bg-red-200 font-bold text-base"
+                class="text-gray-800  h-10  text-center rounded-full border w-full font-bold text-base"
                 @click=${(_: Event) => this.handleConfirmation(false)}
               >
                 Cancelar

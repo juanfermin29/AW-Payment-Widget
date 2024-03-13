@@ -9,16 +9,24 @@
       src="/src/elements/aw-payment-widget/aw-payment-widget.ts"
     ></script>
   </head>
-  <body style="background-color: white;">
+  <body style="background-color: white">
     <aw-payment-widget
-      text="Deposito rapido"
+      text="Pago rápido"
       currency="CLP"
       country="Chile"
       buttonClass="bg-green-500 px-5 py-2 text-lg text-white rounded-full font-bold"
     ></aw-payment-widget>
+
+    <ol>
+      <li>Spinner para botón</li>
+      <li>Cambio de tamaño, color y tamaño de letra</li>
+      <li>Boton de cancelar y alerta</li>
+      <li>Logo AW</li>
+    </ol>
   </body>
   <script>
-    document.querySelector("aw-payment-widget").widgetTokenCallback = getWidgetToken;
+    document.querySelector("aw-payment-widget").widgetTokenCallback =
+      getWidgetToken;
     const payData = {
       currency: "CLP",
       amount: 1500,
@@ -28,18 +36,15 @@
       },
     };
     async function getWidgetToken() {
-      var resp = await fetch(
-        "http://localhost:3005/generate-widget-token",
-        {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({
-            amount: payData.amount,
-            currency: payData.currency,
-            metadata: payData.metadata
-          }),
-        }
-      ).then((x) => x.json());
+      var resp = await fetch("http://localhost:3005/generate-widget-token", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          amount: payData.amount,
+          currency: payData.currency,
+          metadata: payData.metadata,
+        }),
+      }).then((x) => x.json());
       return resp.widget_token;
     }
   </script>

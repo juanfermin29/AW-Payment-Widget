@@ -1,11 +1,11 @@
 export interface BankResponse {
-    data: Bank[];
+  data: Bank[];
 }
 
 export interface Bank {
-    _id:        string;
-    name:       string;
-    code:       string;
-    country:    string;
-    minAmount?: number;
+  _id: string;
+  name: string;
+  country: string;
+  minAmount?: number;
+  img?: string;
 }

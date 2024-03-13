@@ -9,7 +9,7 @@ export class AwBanksGrid extends LitElement {
   static styles = [TWStyles];
 
   @property({ type: Array })
-  banks?: Bank[];
+  banks: Bank[] = [];
 
   render() {
     return html`

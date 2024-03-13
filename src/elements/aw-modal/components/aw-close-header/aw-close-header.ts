@@ -12,7 +12,9 @@ export class AwCloseHeader extends LitElement {
     render() {
         return html`
         <div class="absolute top-[0px]">
-        <button type="button" @click=${this._closeModal}>X</button>
+        <button type="button" 
+        class="p2 border rounded-full w-3 h-3"
+        @click=${this._closeModal}>x</button>
         </div>
         `;
     }

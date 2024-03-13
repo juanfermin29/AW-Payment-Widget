@@ -8,7 +8,7 @@ import { ScrappingProcessState } from "../../interfaces";
 import "./components/index";
 import { TWStyles } from "../../../tailwind/twlit";
 import { StoreController } from "@nanostores/lit";
-import { animate, fadeOut, fadeInSlow } from "@lit-labs/motion";
+import { animate, fadeOut, fadeIn } from "@lit-labs/motion";
 @customElement("aw-scrapping-process")
 export class AwScrappingProcess extends LitElement {
   static styles = [TWStyles];
@@ -69,7 +69,7 @@ export class AwScrappingProcess extends LitElement {
                 duration: 200,
                 fill: "both",
               },
-              in: fadeInSlow,
+              in: fadeIn,
             })}
             loadWidth=${this.loadWidth}
           ></aw-loading>`
@@ -82,7 +82,7 @@ export class AwScrappingProcess extends LitElement {
                 duration: 200,
                 fill: "both",
               },
-              in: fadeInSlow,
+              in: fadeIn,
             })}
           ></aw-input-form>`
         : ""}
@@ -94,7 +94,7 @@ export class AwScrappingProcess extends LitElement {
                 duration: 200,
                 fill: "both",
               },
-              in: fadeInSlow,
+              in: fadeIn,
             })}
           ></aw-select-form>`
         : ""}
@@ -109,7 +109,7 @@ export class AwScrappingProcess extends LitElement {
                 duration: 200,
                 fill: "both",
               },
-              in: fadeInSlow,
+              in: fadeIn,
             })}
           ></aw-confirmation-form>`
         : ""}
@@ -126,7 +126,7 @@ export class AwScrappingProcess extends LitElement {
                 duration: 200,
                 fill: "both",
               },
-              in: fadeInSlow,
+              in: fadeIn,
             })}
             state=${this._pageState}
           ></aw-process-finalized>`
