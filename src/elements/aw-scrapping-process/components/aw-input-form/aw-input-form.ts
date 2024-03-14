@@ -28,11 +28,11 @@ export class AwInputForm extends LitElement {
 
     if (inputs.length > 0) {
       for (let index = 0; index < inputs.length; index++) {
-        if (inputs[index].isSegment) {
+        if (inputs[index].segments) {
           obj = this._handleSegmentInput(
             inputs[index].name,
             obj,
-            inputs[index].isSegment ?? 0
+            inputs[index].segments ?? 0
           );
         } else {
           obj = this._handleCompleteInput(inputs[index].name, obj);
@@ -98,10 +98,10 @@ export class AwInputForm extends LitElement {
             ${input.timeout && this.observeTime
               ? html`<aw-time-out timeout=${input.timeout}></aw-time-out>`
               : ""}
-            ${input.isSegment
+            ${input.segments
               ? html`
                   <div class="flex flex-row gap-0.5">
-                    ${Array(input.isSegment)
+                    ${Array(input.segments)
                       .fill(1)
                       .map((_: number, index: number) => {
                         return html` <input

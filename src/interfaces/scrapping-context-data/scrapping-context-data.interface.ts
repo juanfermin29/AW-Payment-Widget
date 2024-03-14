@@ -33,7 +33,7 @@ export interface ScrapperInputRequired {
   label: string;
   type: "text" | "password" | "email";
   validation?: ScrapperInputValidation[] | any[];
-  isSegment?: number;
+  segments?: number;
   timeout?: number;
 }
 

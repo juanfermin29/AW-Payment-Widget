@@ -17,6 +17,8 @@ $socketContext.subscribe((value) => {
   if (value.$socket) {
     //#region ASK_FOR_DATA
     value.$socket.on("ASK_FOR_DATA", (event: ScrapperInputEvent) => {
+      console.log(event);
+      
       $scrappingContext.set({
         ...$scrappingContext.get(),
         state: ScrappingProcessState.DynamicInput,
@@ -45,14 +47,14 @@ $socketContext.subscribe((value) => {
 
     //#region UPDATE_STEP
     value.$socket.on("UPDATE_STEP", (step: { step: StepMessageEvent }) => {
-      const {finalizedSteps,subtitle,title,totalSteps} = step.step;
+      const { finalizedSteps, subtitle, title, totalSteps } = step.step;
       $scrappingContext.set({
         ...$scrappingContext.get(),
         step: {
-          finalizedSteps:  finalizedSteps,
-          totalSteps:  totalSteps,
+          finalizedSteps: finalizedSteps,
+          totalSteps: totalSteps,
           subtitle,
-          title
+          title,
         },
       });
     });

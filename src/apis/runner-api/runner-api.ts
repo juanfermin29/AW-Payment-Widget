@@ -6,7 +6,7 @@ export const fetchRunner = async () => {
     const { widgetToken, selectedBank, amount, currency, country, clientId } =
       $dataContext.get();
     const runnerResponse = await fetch(
-      "http://localhost:3000/api/v1/scrapper-runner/widget",
+      "http://localhost:3000/api/v1/scrapper-runner/BancoItau",
       {
         method: "POST",
         cache: "no-cache",
