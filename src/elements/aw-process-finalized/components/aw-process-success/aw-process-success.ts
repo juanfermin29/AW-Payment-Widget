@@ -12,7 +12,7 @@ export class AwProcessSuccess extends LitElement {
   private _rows = [
     {
       label: "Número de operación",
-      value: this.context.value.dataStack.reference,
+      value: this.context.value.dataStack?.reference,
     },
     {
       label: "Desde banco",
@@ -20,11 +20,11 @@ export class AwProcessSuccess extends LitElement {
     },
     {
       label: "Cuenta",
-      value: this.context.value.dataStack.account.accountNumber,
+      value: this.context.value.dataStack?.receiverAccount,
     },
     {
       label: "Destinatario",
-      value: this.context.value.dataStack.account.owner,
+      value: this.context.value.dataStack?.receiverName,
     },
     {
       label: "Monto",
@@ -43,7 +43,6 @@ export class AwProcessSuccess extends LitElement {
           <img src=${success} width="100" height="100" class="mx-auto my-3" />
         </div>
       </div>
-
       <div class="flex flex-col">
         ${this._rows.map((info) => {
           return html`

@@ -8,7 +8,7 @@ import { ScrappingProcessState } from "../../interfaces";
 import "./components/index";
 import { TWStyles } from "../../../tailwind/twlit";
 import { StoreController } from "@nanostores/lit";
-import { animate, fadeOut, fadeIn } from "@lit-labs/motion";
+import { animate, fadeIn } from "@lit-labs/motion";
 @customElement("aw-scrapping-process")
 export class AwScrappingProcess extends LitElement {
   static styles = [TWStyles];
@@ -52,7 +52,12 @@ export class AwScrappingProcess extends LitElement {
       const value = await fetchContinue();
       if (value && !$socketContext.get().$socket) {
         this._connectSockets(value);
-        await fetchRunner();
+        try {
+          await fetchRunner();
+        } catch {
+        } finally {
+          $socketContext.get().$socket?.disconnect();
+        }
       }
     }
   }

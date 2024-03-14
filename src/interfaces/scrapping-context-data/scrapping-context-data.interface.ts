@@ -1,10 +1,12 @@
+import { DataStack } from "../datastack/datastack";
+
 export interface ScrappingContextData {
   state: ScrappingProcessState;
   step?: StepMessageEvent  | null;
   dynamicInputs?: ScrapperInputRequired[]  | null;
   dynamicSelect?: ScrapperInputSelect[]  | null;
   confirmation?: string | null;
-  dataStack?: any
+  dataStack?: DataStack
 }
 
 export enum ScrappingProcessState {

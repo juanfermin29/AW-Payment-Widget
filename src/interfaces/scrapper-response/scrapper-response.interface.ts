@@ -5,6 +5,5 @@ export interface ScrapperResponse {
   error?: string | string[];
   internalError?: boolean;
   dataStack?: any;
-  /*  assets?: ScrapperImage[]; */
 }
 
