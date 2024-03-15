@@ -41,11 +41,11 @@ export class AwSelectForm extends LitElement {
         >
       </div>
       <select
-        class="pl-4 placeholder:text-[#474747] text-sm font-normal w-full 
-               h-12 bg-transparent rounded-full  outline-none border-[2px] border-[#909090]"
+        class="pl-4 placeholder:text-[#474747] text-sm font-normal w-full h-12 bg-transparent rounded-full  outline-none border-[2px] border-[#909090]"
         id="aw-select-input"
         @change=${this._submit}
       >
+        <option value="">----------------</option>
         ${$scrappingContext.get().dynamicSelect?.map((opt) => {
           return html`<option
           class="bg-white border-none h-5 py-2 text-black"

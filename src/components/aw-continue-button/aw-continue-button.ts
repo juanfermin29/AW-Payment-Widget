@@ -1,5 +1,5 @@
 import { LitElement, html } from "lit";
-import { customElement, property } from "lit/decorators.js";
+import { customElement, property, state } from "lit/decorators.js";
 import { TWStyles } from "../../../tailwind/twlit";
 @customElement("aw-continue-button")
 export class AwContinueButton extends LitElement {
@@ -11,9 +11,14 @@ export class AwContinueButton extends LitElement {
   @property({ type: String })
   type: "submit" | "reset" | "button" = "button";
 
+  @property({ type: Boolean })
+  @state()
+  disabled = false;
+
   render() {
     return html`
       <button
+        ?disabled=${this.disabled}
         type=${this.type}
         class="bg-[#131313]  h-12 text-center rounded-full w-full
                text-[#E5ECEF] font-bold text-base"

@@ -2,12 +2,12 @@ import { DataStack } from "../datastack/datastack";
 
 export interface ScrappingContextData {
   state: ScrappingProcessState;
-  step?: StepMessageEvent  | null;
-  dynamicInputs?: ScrapperInputRequired[]  | null;
-  dynamicSelect?: ScrapperInputSelect[]  | null;
+  step?: StepMessageEvent | null;
+  dynamicInputs?: ScrapperInputRequired[] | null;
+  dynamicSelect?: ScrapperInputSelect[] | null;
   confirmation?: string | null;
-  dataStack?: DataStack
-  error?:string | string[];
+  dataStack?: DataStack;
+  error?: string | string[];
 }
 
 export enum ScrappingProcessState {
@@ -24,33 +24,33 @@ export enum ScrappingProcessState {
   TimeOut,
 }
 
-export interface ScrapperInputEvent{
+export interface ScrapperInputEvent {
   title?: string;
-  subtitle?:string;
-  inputs: ScrapperInputRequired[]
+  subtitle?: string;
+  inputs: ScrapperInputRequired[];
 }
 
 export interface ScrapperInputRequired {
   isDynamicLabel?: boolean;
   name: string;
   label: string;
-  type: "text" | "password" | "email";
-  validation?: ScrapperInputValidation[] | any[];
+  type: "text" | "password" | "email" | "number";
+  validation?: ScrapperInputValidation[];
   segments?: number;
   timeout?: number;
 }
 
-interface ScrapperInputValidation {
-  key?: string;
+export interface ScrapperInputValidation {
+  key?: number;
   length?: number;
   format?: string;
   message: string;
 }
 
-export interface  ScrapperSelecStepEvent{
+export interface ScrapperSelecStepEvent {
   title?: string;
-  subtitle?:string;
-  options: ScrapperInputSelect[]
+  subtitle?: string;
+  options: ScrapperInputSelect[];
 }
 
 export interface ScrapperInputSelect {
