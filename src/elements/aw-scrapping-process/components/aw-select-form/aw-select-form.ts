@@ -4,7 +4,7 @@ import { $scrappingContext, $socketContext } from "../../../../context";
 import { ScrappingProcessState } from "../../../../interfaces";
 import { TWStyles } from "../../../../../tailwind/twlit";
 import { StoreController } from "@nanostores/lit";
-import img from "../../../../assets/bancoestado.svg";
+import img from "../../../../assets/estado.svg";
 
 @customElement("aw-select-form")
 export class AwSelectForm extends LitElement {

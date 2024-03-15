@@ -1,11 +1,12 @@
 import { $dataContext } from "../../context";
 import { ContinueApiResponse } from "../../interfaces";
+import { RUNNER_API_URL_BASE } from "../../utils";
 
 export const fetchContinue = async (): Promise<string> => {
   try {
     const { selectedBank, country, currency, widgetToken } = $dataContext.get();
     const continueResponse = await fetch(
-      "http://localhost:3000/api/v1/scrapper-runner/continue",
+      `${RUNNER_API_URL_BASE}/scrapper-runner/continue`,
       {
         method: "POST",
         cache: "no-cache",

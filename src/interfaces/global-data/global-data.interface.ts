@@ -5,5 +5,6 @@ export interface GlobalData {
   currency: string;
   clientId: string;
   selectedBank: string;
+  url:string;
   modalIsVisible: boolean;
 }

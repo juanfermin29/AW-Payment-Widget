@@ -52,7 +52,6 @@ export class AwModal extends LitElement {
                 `
               : html` <aw-scrapping-process></aw-scrapping-process>`}
           </div>
-
         </div>
       </div>
     `;

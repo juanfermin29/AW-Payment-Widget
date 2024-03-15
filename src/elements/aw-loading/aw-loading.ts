@@ -6,7 +6,7 @@ export class AwLoading extends LitElement {
   static styles = [TWStyles];
 
   @property({ type: Number })
-  loadWidth!: number;
+  loadWidth: number = 10;
 
   render() {
     return html`<div

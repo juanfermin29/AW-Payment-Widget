@@ -3,4 +3,5 @@ export * from './banks-response/bank-response.interface';
 export * from './continue-api/continue-api.interface';
 export * from './scrapping-context-data/scrapping-context-data.interface';
 export * from './scrapper-response/scrapper-response.interface';
-export * from './datastack/datastack'
+export * from './datastack/datastack';
+export * from './on-success-event/on-success-event';

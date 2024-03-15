@@ -27,16 +27,12 @@ export class AwScrappingProcess extends LitElement {
       if (value.state != this._pageState) {
         this._pageState = value.state;
       }
-      if (
-        this._context.value.step?.finalizedSteps &&
-        this._context.value.step.totalSteps
-      ) {
+      if (this._context.value.step?.porcent) {
         this.loadWidth = Math.floor(
-          (((this._context.value.step?.finalizedSteps * 100) /
-            this._context.value.step.totalSteps) *
-            224) /
-            100
+          224 * (this._context.value.step.porcent! * 0.01)
         );
+      }else{
+        this.loadWidth = Math.floor(224 * 0.10);
       }
     });
   }

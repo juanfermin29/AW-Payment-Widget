@@ -35,6 +35,7 @@ export class AWBankSelection extends LitElement {
         throw new Error("Error looking for banks");
       }
       const data = (await response.json()) as { data: Bank[] };
+      console.log(data);
       return data;
     },
     args: () => [this._context.value.modalIsVisible],

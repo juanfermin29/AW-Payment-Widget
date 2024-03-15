@@ -7,7 +7,7 @@ import {
 } from "../../../../interfaces";
 import { TWStyles } from "../../../../../tailwind/twlit";
 import "../../../../components/index";
-import img from "../../../../assets/bancoestado.svg";
+import img from "../../../../assets/estado.svg";
 import { StoreController } from "@nanostores/lit";
 
 @customElement("aw-input-form")

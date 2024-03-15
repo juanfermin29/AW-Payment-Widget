@@ -3,7 +3,6 @@ import { Socket } from "socket.io-client";
 import { $scrappingContext } from "../scrapping-process-context/scrapping-process-context";
 import {
   ScrappingProcessState,
-  StepMessageEvent,
   ScrapperSelecStepEvent,
   ScrapperInputEvent,
 } from "../../interfaces";
@@ -17,8 +16,6 @@ $socketContext.subscribe((value) => {
   if (value.$socket) {
     //#region ASK_FOR_DATA
     value.$socket.on("ASK_FOR_DATA", (event: ScrapperInputEvent) => {
-      console.log(event);
-      
       $scrappingContext.set({
         ...$scrappingContext.get(),
         state: ScrappingProcessState.DynamicInput,
@@ -46,15 +43,11 @@ $socketContext.subscribe((value) => {
     //#endregion
 
     //#region UPDATE_STEP
-    value.$socket.on("UPDATE_STEP", (step: { step: StepMessageEvent }) => {
-      const { finalizedSteps, subtitle, title, totalSteps } = step.step;
+    value.$socket.on("UPDATE_STEP", (data: {porcent:number}) => {
       $scrappingContext.set({
         ...$scrappingContext.get(),
         step: {
-          finalizedSteps: finalizedSteps,
-          totalSteps: totalSteps,
-          subtitle,
-          title,
+          porcent: data.porcent,
         },
       });
     });

@@ -7,5 +7,6 @@ export interface Bank {
   name: string;
   country: string;
   minAmount?: number;
+  url:string;
   img?: string;
 }

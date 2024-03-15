@@ -7,6 +7,7 @@ export interface ScrappingContextData {
   dynamicSelect?: ScrapperInputSelect[]  | null;
   confirmation?: string | null;
   dataStack?: DataStack
+  error?:string | string[];
 }
 
 export enum ScrappingProcessState {
@@ -60,6 +61,5 @@ export interface ScrapperInputSelect {
 export interface StepMessageEvent {
   title?: string;
   subtitle?: string;
-  totalSteps?: number;
-  finalizedSteps?: number;
+  porcent?: number;
 }

@@ -7,5 +7,6 @@ export const $dataContext = map<GlobalData>({
   clientId: "",
   modalIsVisible: false,
   selectedBank: "",
+  url: "",
   widgetToken: "",
 });

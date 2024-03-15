@@ -1,16 +1,41 @@
 import { LitElement, html } from "lit";
 import { customElement, property, state } from "lit/decorators.js";
 import { TWStyles } from "../../../tailwind/twlit";
-import { $dataContext } from "../../context";
+import { $dataContext, $scrappingContext } from "../../context";
 import { awPaymentWidgetSchema } from "../../utils";
 import * as React from "react";
 import { createComponent } from "@lit/react";
 import { until } from "lit/directives/until.js";
 import "../aw-modal/aw-modal";
+import { OnSuccessEvent, ScrappingProcessState } from "../../interfaces";
 
 @customElement("aw-payment-widget")
 export class AWPaymentWidget extends LitElement {
   static styles = [TWStyles];
+
+  /**
+   *
+   */
+  constructor() {
+    super();
+    $scrappingContext.subscribe((value) => {
+      if (value.state == ScrappingProcessState.Approved) {
+        const { amount, selectedBank } = $dataContext.get();
+        const { dataStack } = $scrappingContext.get();
+        const detail: OnSuccessEvent = {
+          amount,
+          payerBankSelected: selectedBank,
+          reference: dataStack?.reference!,
+        };
+        this.dispatchEvent(
+          new CustomEvent("onPaySuccess", {
+            bubbles: true,
+            detail,
+          })
+        );
+      }
+    });
+  }
 
   @property({ type: String })
   country?: string;
@@ -47,14 +72,14 @@ export class AWPaymentWidget extends LitElement {
         class=${until(this.buttonClass, "")}
         @click=${this.fetchToken}
       >
-      <div class="flex flex-row items-center">
-      ${this._loading
-          ? html`<div
-              class="animate-spin h-3 w-3 border-4 rounded-full border-gray-200 "
-            ></div>`
-          : ""}
-        <span>${this.text}</span>
-      </div>
+        <div class="flex flex-row items-center">
+          ${this._loading
+            ? html`<div
+                class="animate-spin h-3 w-3 border-4 rounded-full border-gray-200 "
+              ></div>`
+            : ""}
+          <span>${this.text}</span>
+        </div>
       </button>
       <aw-modal country=${this.country!} currency=${this.currency!}></aw-modal>
     `;
