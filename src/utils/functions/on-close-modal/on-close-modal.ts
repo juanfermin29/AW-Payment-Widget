@@ -14,6 +14,7 @@ export const onCloseModal = () => {
     selectedBank: "",
     widgetToken: "",
     modalIsVisible: false,
+    url: "",
   });
   $scrappingContext.set({
     state: ScrappingProcessState.Iddle,
@@ -22,8 +23,9 @@ export const onCloseModal = () => {
     dynamicSelect: [],
     step: null,
     dataStack: null,
+    error: [],
   });
-  
+
   $socketContext.get().$socket?.disconnect();
   $socketContext.set({ $socket: null });
 };

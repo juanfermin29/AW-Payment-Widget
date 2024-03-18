@@ -123,6 +123,7 @@ export class AwInputForm extends LitElement {
               >
             `}
       </div>
+
       <!-- Fin header -->
       ${this._context.value.dynamicInputs?.map(
         (input: ScrapperInputRequired) => {
@@ -138,12 +139,12 @@ export class AwInputForm extends LitElement {
                       .map((_: number, index: number) => {
                         return html` <input
                           @input=${(_: Event) => {
-                            const el = this.shadowRoot?.querySelector(
-                              `#${input.name}${index + 2}`
-                            );
-                            if (el) {
-                              (el as HTMLInputElement).focus();
-                            }
+                              const el = this.shadowRoot?.querySelector(
+                                `#${input.name}${index + 2}`
+                              );
+                              if (el) {
+                                (el as HTMLInputElement).focus();
+                              }
                           }}
                           maxlength="1"
                           class="pl-4 placeholder:text-gray-400 placeholder:capitalize text-sm font-bold w-10  h-14 
@@ -157,6 +158,9 @@ export class AwInputForm extends LitElement {
                     ${this._getErrorList(input.name)}
                   </ul>
                 `
+
+
+
               : html`
                   <input
                     class="pl-4 placeholder:text-gray-400 placeholder:capitalize text-sm font-normal w-full 

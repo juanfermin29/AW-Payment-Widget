@@ -6,7 +6,7 @@ export interface ScrappingContextData {
   dynamicInputs?: ScrapperInputRequired[] | null;
   dynamicSelect?: ScrapperInputSelect[] | null;
   confirmation?: string | null;
-  dataStack?: DataStack;
+  dataStack?: DataStack | null;
   error?: string | string[];
 }
 

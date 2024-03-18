@@ -8,7 +8,7 @@ export const modalStyles = css`
     top: 0;
     width: 100%;
     height: 100%;
-     background-color: rgba(51, 51, 51, 0.9); 
+     background-color: rgba(51, 51, 51, 0.8); 
     opacity: 0;
     visibility: hidden;
     transform: scale(1.1);
