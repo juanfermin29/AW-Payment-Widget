@@ -97,11 +97,16 @@ export class AWPaymentWidget extends LitElement {
         );
       }
 
+      $scrappingContext.set({
+        ...$scrappingContext.get(),
+        state: ScrappingProcessState.Iddle,
+      });
       $dataContext.set({
         ...$dataContext.get(),
         widgetToken: resp,
         modalIsVisible: true,
       });
+
       this._loading = false;
     } else {
       throw new Error(

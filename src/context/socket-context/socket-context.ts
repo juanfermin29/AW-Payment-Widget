@@ -16,6 +16,7 @@ $socketContext.subscribe((value) => {
   if (value.$socket) {
     //#region ASK_FOR_DATA
     value.$socket.on("ASK_FOR_DATA", (event: ScrapperInputEvent) => {
+      console.log(event);
       $scrappingContext.set({
         ...$scrappingContext.get(),
         state: ScrappingProcessState.DynamicInput,

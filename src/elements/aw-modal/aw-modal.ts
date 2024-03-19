@@ -4,7 +4,7 @@ import { modalStyles } from "./aw-modal.styles";
 import "../index";
 import "./components/index";
 import { StoreController } from "@nanostores/lit";
-import { $dataContext } from "../../context";
+import { $dataContext, $scrappingContext } from "../../context";
 import { TWStyles } from "../../../tailwind/twlit";
 import { onCloseModal } from "../../utils/functions";
 import { animate, fadeIn } from "@lit-labs/motion";

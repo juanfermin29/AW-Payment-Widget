@@ -16,9 +16,6 @@ export class AwProcessFinalized extends LitElement {
       ${this.state == ScrappingProcessState.Approved
         ? html`<aw-process-success></aw-process-success>`
         : ""}
-      ${this.state == ScrappingProcessState.Canceled
-        ? html`<aw-process-canceled></aw-process-canceled>`
-        : ""}
       ${this.state == ScrappingProcessState.Error
         ? html`<aw-process-error></aw-process-error>`
         : ""}
