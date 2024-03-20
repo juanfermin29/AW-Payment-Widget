@@ -1,15 +1,8 @@
 import { LitElement, html } from "lit";
 import { customElement, property, state } from "lit/decorators.js";
-import {
-  $dataContext,
-  $scrappingContext,
-  $socketContext,
-} from "@/context";
-import {
-  ScrapperInputRequired,
-  ScrappingProcessState,
-} from "@/interfaces";
-import "@/components/index";
+import { $dataContext, $scrappingContext, $socketContext } from "@/context";
+import { ScrapperInputRequired, ScrappingProcessState } from "@/interfaces";
+import "@/components";
 import bci from "@/assets/bci.svg";
 import itau from "@/assets/itau.svg";
 import santander from "@/assets/santander.svg";
@@ -115,27 +108,28 @@ export class AwInputForm extends LitElement {
       @submit=${this._submit}
     >
       <!-- Header -->
-      <div class="mb-5 flex flex-col text-center">
+      <div class="flex flex-col text-center">
         ${!this._context.value?.step?.title?.length
           ? html`<img
               src=${this.imgs.filter((x) =>
                 x.includes(this._dataContext.value.selectedBank!.img!)
               )[0] ?? demo}
               height="80"
-              width="170"
+              width="100"
               class="mb-4 mx-auto"
             />`
           : html`
               <span class="text-black font-bold text-lg"
                 >${this._context.value?.step?.title}</span
               >
-              <small class="text-gray-400 font-normal text-sm"
+              <small class="text-gray-400 font-normal text-sm mb-5"
                 >${this._context.value?.step?.subtitle}</small
               >
             `}
       </div>
 
       <!-- Fin header -->
+
       ${this._context.value.dynamicInputs?.map(
         (input: ScrapperInputRequired) => {
           return html`
@@ -144,7 +138,11 @@ export class AwInputForm extends LitElement {
               : ""}
             ${input.segments
               ? html`
-                  <div class="flex flex-row gap-0.5">
+                  <div
+                    class=${`flex flex-row mx-auto ${
+                      input.segments! >= 8 ? "gap-1" : "gap-2"
+                    }`}
+                  >
                     ${Array(input.segments)
                       .fill(1)
                       .map((_: number, index: number) => {
@@ -158,8 +156,14 @@ export class AwInputForm extends LitElement {
                             }
                           }}
                           maxlength="1"
-                          class="pl-4 placeholder:text-gray-400 placeholder:capitalize text-sm font-bold w-10  h-14 
-                          bg-transparent rounded-md  outline-none border-[1px] border-[#909090]  mx-auto"
+                          class=${`  ${
+                            input.segments! >= 8
+                              ? "w-8 h-12 pl-3"
+                              : "w-10 h-14 pl-4"
+                          }
+                           placeholder:text-gray-400 placeholder:capitalize text-sm font-bold bg-white   
+                          bg-transparent rounded-md  outline-none border-[1px] border-[#909090] mx-auto
+                          `}
                           type=${input.type}
                           id=${`${input.name}${index + 1}`}
                         />`;
@@ -172,7 +176,7 @@ export class AwInputForm extends LitElement {
               : html`
                   <input
                     class="pl-4 placeholder:text-gray-400 placeholder:capitalize text-sm font-normal w-full 
-                     h-12 bg-transparent rounded-full  outline-none border-[2px] border-[#909090] "
+                     h-12 bg-transparent rounded-full  outline-none border-[2px] bg-white border-[#909090] "
                     placeholder=${input.label}
                     type=${input.type}
                     name=${input.name}

@@ -34,6 +34,6 @@ export const modalStyles = css`
     transform: translate(-50%, -50%);
     border-radius: 12px !important;
     width: 400px;
-    height: 500px;
+    height: 560px;
   }
 `;

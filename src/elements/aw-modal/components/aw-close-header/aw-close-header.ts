@@ -1,26 +1,28 @@
-import { LitElement, html } from 'lit';
-import { customElement } from 'lit/decorators.js'
-import { $socketContext } from '../../../../context';
-import { TWStyles } from '../../../../../tailwind/twlit';
-
-@customElement('aw-close-header')
+import { LitElement, html } from "lit";
+import { customElement } from "lit/decorators.js";
+import { $socketContext } from "../../../../context";
+import { TWStyles } from "../../../../../tailwind/twlit";
+import ex from "@/assets/ex.svg";
+@customElement("aw-close-header")
 export class AwCloseHeader extends LitElement {
-    static styles = [
-   TWStyles
-    ];
+  static styles = [TWStyles];
 
-    render() {
-        return html`
-        <div class="absolute top-[0px]">
-        <button type="button" 
-        class="p2 border rounded-full w-3 h-3"
-        @click=${this._closeModal}>x</button>
-        </div>
-        `;
-    }
+  render() {
+    return html`
+      <div class="absolute top-[10px]">
+        <button
+          type="button"
+          class="p-2 border bg-gray-300 hover:bg-gray-500  rounded-full "
+          @click=${this._closeModal}
+        >
+          <img src=${ex} height="15" width="15" />
+        </button>
+      </div>
+    `;
+  }
 
-    private _closeModal(){
-        $socketContext.get().$socket?.disconnect();
-       this.dispatchEvent(new CustomEvent('close-modal-event')); 
-    }
+  private _closeModal() {
+    $socketContext.get().$socket?.disconnect();
+    this.dispatchEvent(new CustomEvent("close-modal-event"));
+  }
 }

@@ -1,10 +1,6 @@
 import { LitElement, html } from "lit";
 import { customElement, property, state } from "lit/decorators.js";
-import {
-  $dataContext,
-  $scrappingContext,
-  $socketContext,
-} from "@/context";
+import { $dataContext, $scrappingContext, $socketContext } from "@/context";
 import { ScrappingProcessState } from "@/interfaces";
 import { StoreController } from "@nanostores/lit";
 import { TWStyles } from "../../../../../tailwind/twlit";
@@ -47,7 +43,7 @@ export class AwSelectForm extends LitElement {
             x.includes(this._dataContext.value.selectedBank!.img!)
           )[0] ?? demo}
           height="80"
-          width="170"
+          width="100"
           class="mb-4 mx-auto"
         />
 
