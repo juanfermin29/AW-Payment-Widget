@@ -12,10 +12,10 @@ export class AwCloseHeader extends LitElement {
       <div class="absolute top-[10px]">
         <button
           type="button"
-          class="p-2 border bg-gray-300 hover:bg-gray-500  rounded-full "
+          class="p-1 border bg-gray-300 hover:bg-green-400 transition-all duration-75  rounded-full "
           @click=${this._closeModal}
         >
-          <img src=${ex} height="15" width="15" />
+          <img src=${ex} height="12" width="12" />
         </button>
       </div>
     `;

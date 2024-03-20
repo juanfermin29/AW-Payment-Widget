@@ -20,8 +20,8 @@ export class AwContinueButton extends LitElement {
       <button
         ?disabled=${this.disabled}
         type=${this.type}
-        class="bg-[#131313]  h-12 text-center rounded-full w-full
-               text-[#E5ECEF] font-bold text-base"
+        class="bg-[#131313] disabled:bg-gray-400 transition-all duration-75  h-12
+         text-center rounded-full w-full text-[#E5ECEF] font-bold text-base"
         @click=${this._onClick}
       >
         ${this.text}
@@ -30,6 +30,8 @@ export class AwContinueButton extends LitElement {
   }
 
   private _onClick() {
+    this.disabled = true;
+    console.log('disabling');
     if (this.type == "submit") {
       this.dispatchEvent(new SubmitEvent("button-continue-click"));
     } else {

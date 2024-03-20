@@ -16,37 +16,46 @@ export class AwConfirmationForm extends LitElement {
   @property({ attribute: false })
   scrapperState?: ScrappingProcessState = $scrappingContext.get().state;
 
+  @state()
+  private _disabled = false;
+
   render() {
     return html`
-      <div class="flex flex-col text-center justify-center">
+      <div class="flex flex-col text-center justify-center ">
         <img src=${alert} height="100" width="100" class="mx-auto" />
-        <span class="text-bold text-lg mb-3"> ${this.confirmationMsg} </span>
+        <span class="font-bold text-2xl my-3 break-words">
+          ${this.confirmationMsg}
+        </span>
         <div class="flex flex-1"></div>
         ${this.scrapperState == ScrappingProcessState.Confirmation
           ? html` <div class="flex flex-col justify-center gap-2">
-              <button
+              <aw-continue-button
                 type="button"
-                class="text-gray-800 h-10  border text-center rounded-full w-full
-                font-bold text-base "
-                @click=${(_: Event) => this.handleConfirmation(true)}
-              >
-                Confirmar
-              </button>
+                .disabled=${this._disabled}
+                text="Continuar"
+                @button-continue-click=${(_: CustomEvent) => {
+                  this._handleConfirmation(true);
+                }}
+              ></aw-continue-button>
 
-              <button
+              <span
                 type="button"
-                class="text-gray-800  h-10  text-center rounded-full border w-full font-bold text-base"
-                @click=${(_: Event) => this.handleConfirmation(false)}
+                class="text-gray-950 font-bold cursor-pointer underline"
+                @click=${(_: Event) => this._handleConfirmation(false)}
               >
-                Cancelar
-              </button>
+                CANCELAR
+              </span>
             </div>`
           : ""}
       </div>
     `;
   }
 
-  private handleConfirmation(confirm: boolean) {
-    $socketContext.get().$socket?.emit("RECEIVE_REQUIRED_DATA", `${confirm}`);
+  private _handleConfirmation(confirm: boolean) {
+    if (!this._disabled) {
+      console.log(confirm);
+      this._disabled = true;
+      $socketContext.get().$socket?.emit("RECEIVE_REQUIRED_DATA", `${confirm}`);
+    }
   }
 }

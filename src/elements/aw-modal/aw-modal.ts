@@ -7,6 +7,7 @@ import { StoreController } from "@nanostores/lit";
 import { $dataContext } from "@/context";
 import { onCloseModal } from "@/utils/functions";
 import { animate, fadeIn } from "@lit-labs/motion";
+import awlogo from "@/assets/aw-logo.png";
 import { TWStyles } from "../../../tailwind/twlit";
 
 @customElement("aw-modal")
@@ -52,8 +53,11 @@ export class AwModal extends LitElement {
                 `
               : html` <aw-scrapping-process></aw-scrapping-process>`}
           </div>
-          <div class="w-full font-normal text-gray-950 mb-4 text-center">
-            <span>Supported by: Andean Wide</span>
+          <div
+            class="w-full font-normal text-gray-950 mb-4 text-center justify-center  flex flex-row items-center gap-1"
+          >
+            <span>Supported by</span>
+            <img src=${awlogo} width="130" height="18" />
           </div>
         </div>
       </div>

@@ -7,7 +7,8 @@ import bci from "@/assets/bci.svg";
 import itau from "@/assets/itau.svg";
 import santander from "@/assets/santander.svg";
 import falabella from "@/assets/falabella.svg";
-import demo from "@/assets/success.svg";
+import demo from "@/assets/aw-logo.png";
+
 import { StoreController } from "@nanostores/lit";
 import { getValidationSchema } from "@/utils";
 import { ValidationError } from "yup";
@@ -114,7 +115,7 @@ export class AwInputForm extends LitElement {
               src=${this.imgs.filter((x) =>
                 x.includes(this._dataContext.value.selectedBank!.img!)
               )[0] ?? demo}
-              height="80"
+              height="100"
               width="100"
               class="mb-4 mx-auto"
             />`
@@ -122,9 +123,14 @@ export class AwInputForm extends LitElement {
               <span class="text-black font-bold text-lg"
                 >${this._context.value?.step?.title}</span
               >
-              <small class="text-gray-400 font-normal text-sm mb-5"
-                >${this._context.value?.step?.subtitle}</small
-              >
+              <img
+                src=${this.imgs.filter((x) =>
+                  x.includes(this._dataContext.value.selectedBank!.img!)
+                )[0] ?? demo}
+                height="20"
+                width="50"
+                class="my-4 mx-auto"
+              />
             `}
       </div>
 

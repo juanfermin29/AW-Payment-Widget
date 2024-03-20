@@ -8,7 +8,7 @@ import bci from "@/assets/bci.svg";
 import itau from "@/assets/itau.svg";
 import santander from "@/assets/santander.svg";
 import falabella from "@/assets/falabella.svg";
-import demo from "@/assets/success.svg";
+import demo from "@/assets/aw-logo.png";
 
 @customElement("aw-select-form")
 export class AwSelectForm extends LitElement {

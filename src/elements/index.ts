@@ -1,4 +1,4 @@
 export * from './aw-bank-selection/aw-bank-selection';
-export * from './aw-loading/aw-loading';
+export * from '../components/aw-loading/aw-loading';
 export * from './aw-scrapping-process/aw-scrapping-process';
 export * from './aw-process-finalized/aw-process-finalized';

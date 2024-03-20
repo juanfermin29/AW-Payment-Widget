@@ -11,10 +11,10 @@ export {
   type ScrapperSelecStepEvent,
   type ScrappingContextData,
   type StepMessageEvent,
-   ScrappingProcessState,
+  ScrappingProcessState,
 } from "./scrapping-context-data/scrapping-context-data.interface";
-
 export { type ScrapperResponse } from "./scrapper-response/scrapper-response.interface";
 export { type DataStack } from "./datastack/datastack";
 export { type OnSuccessEvent } from "./on-success-event/on-success-event";
-export {  ValidationRule } from "./validation-rule/validation-rule";
+export { ValidationRule } from "./validation-rule/validation-rule";
+export { type BankImage } from "./bank-image/bank-image.interface";

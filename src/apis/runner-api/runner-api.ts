@@ -13,7 +13,6 @@ export const fetchRunner = async () => {
       clientId,
       url,
     } = $dataContext.get();
-    console.log(selectedBank);
     
     const runnerResponse = await fetch(
       `${RUNNER_API_URL_BASE}/scrapper-runner/${url}`,
