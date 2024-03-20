@@ -1,10 +1,9 @@
 import { LitElement, html, PropertyValueMap } from "lit";
 import { customElement, state } from "lit/decorators.js";
-import { fetchContinue } from "../../apis/continue-api/continue-api";
-import { $dataContext, $scrappingContext, $socketContext } from "../../context";
-import { getSocketConnection } from "../../utils";
-import { fetchRunner } from "../../apis";
-import { ScrappingProcessState } from "../../interfaces";
+import { fetchContinue, fetchRunner } from "@/apis";
+import { $dataContext, $scrappingContext, $socketContext } from "@/context";
+import { getSocketConnection } from "@/utils";
+import { ScrappingProcessState } from "@/interfaces";
 import "./components/index";
 import { TWStyles } from "../../../tailwind/twlit";
 import { StoreController } from "@nanostores/lit";
@@ -31,8 +30,8 @@ export class AwScrappingProcess extends LitElement {
         this.loadWidth = Math.floor(
           224 * (this._context.value.step.porcent! * 0.01)
         );
-      }else{
-        this.loadWidth = Math.floor(224 * 0.10);
+      } else {
+        this.loadWidth = Math.floor(224 * 0.1);
       }
     });
   }
@@ -60,78 +59,80 @@ export class AwScrappingProcess extends LitElement {
 
   render() {
     return html`
-      <!--  -->
-      ${[ScrappingProcessState.Loading, ScrappingProcessState.Iddle].includes(
-        this._pageState
-      )
-        ? html`<aw-loading
-            ${animate({
-              keyframeOptions: {
-                duration: 200,
-                fill: "both",
-              },
-              in: fadeIn,
-            })}
-            loadWidth=${this.loadWidth}
-          ></aw-loading>`
-        : ""}
-      <!--  -->
-      ${this._pageState == ScrappingProcessState.DynamicInput
-        ? html`<aw-input-form
-            ${animate({
-              keyframeOptions: {
-                duration: 200,
-                fill: "both",
-              },
-              in: fadeIn,
-            })}
-          ></aw-input-form>`
-        : ""}
-      <!--  -->
-      ${this._pageState == ScrappingProcessState.DynamicSelect
-        ? html`<aw-select-form
-            ${animate({
-              keyframeOptions: {
-                duration: 200,
-                fill: "both",
-              },
-              in: fadeIn,
-            })}
-          ></aw-select-form>`
-        : ""}
-      <!--  -->
-      ${[
-        ScrappingProcessState.Confirmation,
-        ScrappingProcessState.Alert,
-      ].includes(this._pageState)
-        ? html`<aw-confirmation-form
-            ${animate({
-              keyframeOptions: {
-                duration: 200,
-                fill: "both",
-              },
-              in: fadeIn,
-            })}
-          ></aw-confirmation-form>`
-        : ""}
-      <!--  -->
-      ${[
-        ScrappingProcessState.Canceled,
-        ScrappingProcessState.Error,
-        ScrappingProcessState.Approved,
-        ScrappingProcessState.TimeOut,
-      ].includes(this._pageState)
-        ? html` <aw-process-finalized
-            ${animate({
-              keyframeOptions: {
-                duration: 200,
-                fill: "both",
-              },
-              in: fadeIn,
-            })}
-            state=${this._pageState}
-          ></aw-process-finalized>`
-        : ""}
+      <div class="p-10 h-full ">
+        <!--  -->
+        ${[ScrappingProcessState.Loading, ScrappingProcessState.Iddle].includes(
+          this._pageState
+        )
+          ? html`<aw-loading
+              ${animate({
+                keyframeOptions: {
+                  duration: 200,
+                  fill: "both",
+                },
+                in: fadeIn,
+              })}
+              loadWidth=${this.loadWidth}
+            ></aw-loading>`
+          : ""}
+        <!--  -->
+        ${this._pageState == ScrappingProcessState.DynamicInput
+          ? html`<aw-input-form
+              ${animate({
+                keyframeOptions: {
+                  duration: 200,
+                  fill: "both",
+                },
+                in: fadeIn,
+              })}
+            ></aw-input-form>`
+          : ""}
+        <!--  -->
+        ${this._pageState == ScrappingProcessState.DynamicSelect
+          ? html`<aw-select-form
+              ${animate({
+                keyframeOptions: {
+                  duration: 200,
+                  fill: "both",
+                },
+                in: fadeIn,
+              })}
+            ></aw-select-form>`
+          : ""}
+        <!--  -->
+        ${[
+          ScrappingProcessState.Confirmation,
+          ScrappingProcessState.Alert,
+        ].includes(this._pageState)
+          ? html`<aw-confirmation-form
+              ${animate({
+                keyframeOptions: {
+                  duration: 200,
+                  fill: "both",
+                },
+                in: fadeIn,
+              })}
+            ></aw-confirmation-form>`
+          : ""}
+        <!--  -->
+        ${[
+          ScrappingProcessState.Canceled,
+          ScrappingProcessState.Error,
+          ScrappingProcessState.Approved,
+          ScrappingProcessState.TimeOut,
+        ].includes(this._pageState)
+          ? html` <aw-process-finalized
+              ${animate({
+                keyframeOptions: {
+                  duration: 200,
+                  fill: "both",
+                },
+                in: fadeIn,
+              })}
+              state=${this._pageState}
+            ></aw-process-finalized>`
+          : ""}
+      </div>
     `;
   }
 

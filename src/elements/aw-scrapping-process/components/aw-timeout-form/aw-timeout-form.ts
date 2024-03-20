@@ -1,9 +1,9 @@
 import { LitElement, PropertyValueMap, html } from "lit";
 import { customElement, property, query } from "lit/decorators.js";
 import { asyncReplace } from "lit/directives/async-replace.js";
-import { $scrappingContext, $socketContext } from "../../../../context";
+import { $scrappingContext, $socketContext } from "@/context";
 import { TWStyles } from "../../../../../tailwind/twlit";
-import { ScrappingProcessState } from "../../../../interfaces";
+import { ScrappingProcessState } from "@/interfaces";
 import { timeFormStyles } from "./aw-timeout-form.style";
 
 async function* countDown(count: number) {

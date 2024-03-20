@@ -2,13 +2,12 @@ import { css } from "lit";
 
 export const modalStyles = css`
   .wrapper {
-    border: 1px solid black;
     position: fixed;
     left: 0;
     top: 0;
     width: 100%;
     height: 100%;
-     background-color: rgba(51, 51, 51, 0.8); 
+    background-color: rgba(51, 51, 51, 0.8);
     opacity: 0;
     visibility: hidden;
     transform: scale(1.1);
@@ -33,34 +32,8 @@ export const modalStyles = css`
     padding-bottom: 20px;
     padding-top: 20px;
     transform: translate(-50%, -50%);
-    border-radius: 20px !important;
-    width: 350px;
+    border-radius: 12px !important;
+    width: 400px;
     height: 500px;
-  }
-
-  .title {
-    color: black;
-    font-size: 18px;
-  }
-
-  .button-container {
-    text-align: right;
-  }
-
-  button {
-    margin-left: 5px;
-    min-width: 80px;
-    background-color: dodgerblue;
-    border-color: #848e97;
-    border-style: solid;
-    border-radius: 2px;
-    padding: 3px;
-    color: white;
-    cursor: pointer;
-  }
-
-  button:hover {
-    background-color: #6c757d;
-    border-color: #6c757d;
   }
 `;

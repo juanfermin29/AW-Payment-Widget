@@ -1,13 +1,13 @@
 import { LitElement, html } from "lit";
 import { customElement, property } from "lit/decorators.js";
 import { modalStyles } from "./aw-modal.styles";
-import "../index";
+import "@/elements/index";
 import "./components/index";
 import { StoreController } from "@nanostores/lit";
-import { $dataContext, $scrappingContext } from "../../context";
-import { TWStyles } from "../../../tailwind/twlit";
-import { onCloseModal } from "../../utils/functions";
+import { $dataContext } from "@/context";
+import { onCloseModal } from "@/utils/functions";
 import { animate, fadeIn } from "@lit-labs/motion";
+import { TWStyles } from "../../../tailwind/twlit";
 
 @customElement("aw-modal")
 export class AwModal extends LitElement {
@@ -37,12 +37,12 @@ export class AwModal extends LitElement {
             },
             in: fadeIn,
           })}
-          class="modal shadow-xl"
+          class="modal shadow-xl flex flex-col "
         >
           <aw-close-header
             @close-modal-event=${this._closeModalEvent}
           ></aw-close-header>
-          <div class="h-full pt-10 pb-3 text-center px-3">
+          <div class="h-full  text-center">
             ${!this._context?.value.selectedBank
               ? html`
                   <aw-bank-selection
@@ -51,6 +51,9 @@ export class AwModal extends LitElement {
                   ></aw-bank-selection>
                 `
               : html` <aw-scrapping-process></aw-scrapping-process>`}
+          </div>
+          <div class="w-full font-normal text-gray-950 mb-4 text-center">
+            <span>Supported by: Andean Wide</span>
           </div>
         </div>
       </div>

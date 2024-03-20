@@ -1,32 +1,32 @@
 import { LitElement, html } from "lit";
 import { customElement, property } from "lit/decorators.js";
 import { TWStyles } from "../../../../tailwind/twlit";
-import { Bank } from "../../../interfaces";
-import { $dataContext } from "../../../context";
-import estado from "../../../assets/estado.svg";
-import bci from "../../../assets/bci.svg";
-import itau from "../../../assets/itau.svg";
-import santander from "../../../assets/santander.svg";
-import falabella from "../../../assets/falabella.svg";
-import demo from "../../../assets/success.svg";
+import { Bank } from "@/interfaces";
+import { $dataContext } from "@/context";
+import bci from "@/assets/bci.svg";
+import itau from "@/assets/itau.svg";
+import santander from "@/assets/santander.svg";
+import falabella from "@/assets/falabella.svg";
+import demo from "@/assets/success.svg";
+import { bankSelectionStyles } from "../aw-bank-selection.style";
 
 @customElement("aw-banks-grid")
 export class AwBanksGrid extends LitElement {
-  static styles = [TWStyles];
-  private imgs = [estado, bci, itau, santander, demo, falabella];
+  static styles = [bankSelectionStyles, TWStyles];
+  private imgs = [bci, itau, santander, demo, falabella];
 
   @property({ type: Array })
   banks?: Bank[] = [];
 
   render() {
     return html`
-      <div class="grid grid-cols-2 justify-center">
+      <div class="grid grid-cols-2 justify-center py-3">
         ${this.banks?.map((bank: Bank) => {
           return html`
             <div
               @click=${(_: Event) => this._selectBank(_, bank)}
-              class="h-20 w-32 rounded-lg mx-auto hover:shadow-lg border
-               border-gray-300 mb-5 flex-col cursor-pointer transition-all duration-200
+              class="h-20 w-40 rounded-lg mx-auto bank-box
+               mb-5 flex-col cursor-pointer transition-all duration-200
               flex justify-center items-center"
             >
               <img
@@ -47,8 +47,8 @@ export class AwBanksGrid extends LitElement {
   private _selectBank(_: Event, bank: Bank) {
     $dataContext.set({
       ...$dataContext.get(),
-      selectedBank: bank._id,
-      url: bank.url
+      selectedBank: bank,
+      url: bank.url,
     });
   }
 }

@@ -2,8 +2,8 @@ import {
   $dataContext,
   $scrappingContext,
   $socketContext,
-} from "../../../context";
-import { ScrappingProcessState } from "../../../interfaces";
+} from "@/context";
+import { ScrappingProcessState } from "@/interfaces";
 
 export const onCloseModal = () => {
   $dataContext.set({
@@ -11,7 +11,7 @@ export const onCloseModal = () => {
     currency: "",
     country: "",
     clientId: "",
-    selectedBank: "",
+    selectedBank: null,
     widgetToken: "",
     modalIsVisible: false,
     url: "",

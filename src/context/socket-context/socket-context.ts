@@ -1,11 +1,11 @@
 import { atom } from "nanostores";
 import { Socket } from "socket.io-client";
-import { $scrappingContext } from "../scrapping-process-context/scrapping-process-context";
+import { $scrappingContext } from "@/context";
 import {
   ScrappingProcessState,
   ScrapperSelecStepEvent,
   ScrapperInputEvent,
-} from "../../interfaces";
+} from "@/interfaces";
 
 export const $socketContext = atom<{
   $socket: Socket | null;
@@ -44,7 +44,7 @@ $socketContext.subscribe((value) => {
     //#endregion
 
     //#region UPDATE_STEP
-    value.$socket.on("UPDATE_STEP", (data: {porcent:number}) => {
+    value.$socket.on("UPDATE_STEP", (data: { porcent: number }) => {
       $scrappingContext.set({
         ...$scrappingContext.get(),
         step: {

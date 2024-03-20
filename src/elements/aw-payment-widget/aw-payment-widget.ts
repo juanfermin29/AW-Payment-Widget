@@ -1,21 +1,18 @@
 import { LitElement, html } from "lit";
 import { customElement, property, state } from "lit/decorators.js";
-import { TWStyles } from "../../../tailwind/twlit";
-import { $dataContext, $scrappingContext } from "../../context";
-import { awPaymentWidgetSchema } from "../../utils";
+import { $dataContext, $scrappingContext } from "@/context";
+import { awPaymentWidgetSchema } from "@/utils";
 import * as React from "react";
 import { createComponent } from "@lit/react";
 import { until } from "lit/directives/until.js";
 import "../aw-modal/aw-modal";
-import { OnSuccessEvent, ScrappingProcessState } from "../../interfaces";
+import { OnSuccessEvent, ScrappingProcessState } from "@/interfaces";
+import { TWStyles } from "../../../tailwind/twlit";
 
 @customElement("aw-payment-widget")
 export class AWPaymentWidget extends LitElement {
   static styles = [TWStyles];
 
-  /**
-   *
-   */
   constructor() {
     super();
     $scrappingContext.subscribe((value) => {
@@ -24,7 +21,7 @@ export class AWPaymentWidget extends LitElement {
         const { dataStack } = $scrappingContext.get();
         const detail: OnSuccessEvent = {
           amount,
-          payerBankSelected: selectedBank,
+          payerBankSelected: selectedBank!,
           reference: dataStack?.reference!,
         };
         this.dispatchEvent(

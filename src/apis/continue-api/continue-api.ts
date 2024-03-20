@@ -1,6 +1,6 @@
-import { $dataContext } from "../../context";
-import { ContinueApiResponse } from "../../interfaces";
-import { RUNNER_API_URL_BASE } from "../../utils";
+import { $dataContext } from "@/context";
+import { ContinueApiResponse } from "@/interfaces";
+import { RUNNER_API_URL_BASE } from "@/utils";
 
 export const fetchContinue = async (): Promise<string> => {
   try {
@@ -14,7 +14,7 @@ export const fetchContinue = async (): Promise<string> => {
           "Content-Type": "application/json",
           Authorization: `Bearer ${widgetToken}`,
         },
-        body: JSON.stringify({ bankId: selectedBank, currency, country }),
+        body: JSON.stringify({ bankId: selectedBank?._id, currency, country }),
       }
     );
     if (continueResponse.ok) {

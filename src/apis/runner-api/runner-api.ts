@@ -1,6 +1,6 @@
-import { $dataContext, $scrappingContext } from "../../context";
-import { ScrapperResponse } from "../../interfaces";
-import { RUNNER_API_URL_BASE } from "../../utils";
+import { $dataContext, $scrappingContext } from "@/context";
+import { ScrapperResponse } from "@/interfaces";
+import { RUNNER_API_URL_BASE } from "@/utils";
 
 export const fetchRunner = async () => {
   try {
@@ -13,6 +13,8 @@ export const fetchRunner = async () => {
       clientId,
       url,
     } = $dataContext.get();
+    console.log(selectedBank);
+    
     const runnerResponse = await fetch(
       `${RUNNER_API_URL_BASE}/scrapper-runner/${url}`,
       {
@@ -23,7 +25,7 @@ export const fetchRunner = async () => {
           Authorization: `Bearer ${widgetToken}`,
         },
         body: JSON.stringify({
-          bankId: selectedBank,
+          bankId: selectedBank!._id,
           amount,
           country,
           currency,

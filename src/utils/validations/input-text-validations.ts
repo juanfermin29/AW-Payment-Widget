@@ -2,7 +2,7 @@ import {
   ScrapperInputRequired,
   ScrapperInputValidation,
   ValidationRule,
-} from "../../interfaces";
+} from "@/interfaces";
 import * as yup from "yup";
 
 export const getValidationSchema = (

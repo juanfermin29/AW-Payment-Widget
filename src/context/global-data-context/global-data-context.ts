@@ -1,12 +1,12 @@
 import { map } from "nanostores";
-import { GlobalData } from "../../interfaces";
+import { GlobalData } from "@/interfaces";
 export const $dataContext = map<GlobalData>({
   amount: 0,
   country: "",
   currency: "",
   clientId: "",
   modalIsVisible: false,
-  selectedBank: "",
+  selectedBank: null,
   url: "",
   widgetToken: "",
 });

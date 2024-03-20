@@ -1,8 +1,8 @@
 import { LitElement, html } from "lit";
 import { customElement, property } from "lit/decorators.js";
+import { ScrappingProcessState } from "@/interfaces";
+import "@/elements/aw-process-finalized/components";
 import { TWStyles } from "../../../tailwind/twlit";
-import { ScrappingProcessState } from "../../interfaces";
-import "./components/index";
 
 @customElement("aw-process-finalized")
 export class AwProcessFinalized extends LitElement {

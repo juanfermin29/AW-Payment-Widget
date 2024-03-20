@@ -1,6 +1,6 @@
 import { LitElement, html, css } from "lit";
 import { customElement } from "lit/decorators.js";
-import { $scrappingContext } from "../../../../context";
+import { $scrappingContext } from "@/context";
 import { StoreController } from "@nanostores/lit";
 
 @customElement("aw-process-error")

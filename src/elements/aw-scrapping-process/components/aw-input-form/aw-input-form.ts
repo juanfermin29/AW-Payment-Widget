@@ -1,21 +1,30 @@
 import { LitElement, html } from "lit";
 import { customElement, property, state } from "lit/decorators.js";
-import { $scrappingContext, $socketContext } from "../../../../context";
+import {
+  $dataContext,
+  $scrappingContext,
+  $socketContext,
+} from "@/context";
 import {
   ScrapperInputRequired,
   ScrappingProcessState,
-} from "../../../../interfaces";
-import { TWStyles } from "../../../../../tailwind/twlit";
-import "../../../../components/index";
-import img from "../../../../assets/estado.svg";
+} from "@/interfaces";
+import "@/components/index";
+import bci from "@/assets/bci.svg";
+import itau from "@/assets/itau.svg";
+import santander from "@/assets/santander.svg";
+import falabella from "@/assets/falabella.svg";
+import demo from "@/assets/success.svg";
 import { StoreController } from "@nanostores/lit";
-import { getValidationSchema } from "../../../../utils/validations/input-text-validations";
+import { getValidationSchema } from "@/utils";
 import { ValidationError } from "yup";
+import { TWStyles } from "../../../../../tailwind/twlit";
 @customElement("aw-input-form")
 export class AwInputForm extends LitElement {
   static styles = [TWStyles];
-
+  private imgs = [bci, itau, santander, demo, falabella];
   private _context = new StoreController(this, $scrappingContext);
+  private _dataContext = new StoreController(this, $dataContext);
 
   @property({ type: Boolean, attribute: false })
   @state()
@@ -102,20 +111,22 @@ export class AwInputForm extends LitElement {
   render() {
     return html` <form
       id="my-form"
-      class=" h-[100%] flex flex-col justify-center"
+      class=" h-[100%]  flex flex-col justify-center"
       @submit=${this._submit}
     >
       <!-- Header -->
       <div class="mb-5 flex flex-col text-center">
         ${!this._context.value?.step?.title?.length
           ? html`<img
-              src=${img}
+              src=${this.imgs.filter((x) =>
+                x.includes(this._dataContext.value.selectedBank!.img!)
+              )[0] ?? demo}
               height="80"
               width="170"
               class="mb-4 mx-auto"
             />`
           : html`
-              <span class="text-[#474747] font-bold text-lg"
+              <span class="text-black font-bold text-lg"
                 >${this._context.value?.step?.title}</span
               >
               <small class="text-gray-400 font-normal text-sm"
@@ -139,12 +150,12 @@ export class AwInputForm extends LitElement {
                       .map((_: number, index: number) => {
                         return html` <input
                           @input=${(_: Event) => {
-                              const el = this.shadowRoot?.querySelector(
-                                `#${input.name}${index + 2}`
-                              );
-                              if (el) {
-                                (el as HTMLInputElement).focus();
-                              }
+                            const el = this.shadowRoot?.querySelector(
+                              `#${input.name}${index + 2}`
+                            );
+                            if (el) {
+                              (el as HTMLInputElement).focus();
+                            }
                           }}
                           maxlength="1"
                           class="pl-4 placeholder:text-gray-400 placeholder:capitalize text-sm font-bold w-10  h-14 
@@ -158,9 +169,6 @@ export class AwInputForm extends LitElement {
                     ${this._getErrorList(input.name)}
                   </ul>
                 `
-
-
-
               : html`
                   <input
                     class="pl-4 placeholder:text-gray-400 placeholder:capitalize text-sm font-normal w-full 
@@ -186,8 +194,8 @@ export class AwInputForm extends LitElement {
       <!--  -->
       ${!this._context.value?.step?.title?.length
         ? html`
-            <div class="bg-gray-200 mx-5 py-1 px-0.5 rounded-md">
-              <span class="text-[#474747] text-xs  break-words">
+            <div class="py-1 ">
+              <span class="text-gray-600 text-xs break-words">
                 Los datos son encriptados con TLS 1.2 y se utilizarán para pagar
                 esta única vez.
               </span>

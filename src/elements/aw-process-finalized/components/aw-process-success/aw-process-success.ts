@@ -1,9 +1,9 @@
 import { LitElement, html } from "lit";
 import { customElement } from "lit/decorators.js";
-import success from "../../../../assets/success.svg";
-import { TWStyles } from "../../../../../tailwind/twlit";
-import { $dataContext, $scrappingContext } from "../../../../context";
+import success from "@/assets/success.svg";
+import { $dataContext, $scrappingContext } from "@/context";
 import { StoreController } from "@nanostores/lit";
+import { TWStyles } from "../../../../../tailwind/twlit";
 
 @customElement("aw-process-success")
 export class AwProcessSuccess extends LitElement {
@@ -16,7 +16,7 @@ export class AwProcessSuccess extends LitElement {
     },
     {
       label: "Desde banco",
-      value: this.data.selectedBank,
+      value: this.data.selectedBank?.name,
     },
     {
       label: "Cuenta",

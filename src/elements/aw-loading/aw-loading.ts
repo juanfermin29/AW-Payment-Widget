@@ -12,8 +12,8 @@ export class AwLoading extends LitElement {
     return html`<div
       class="flex flex-col justify-center text-center items-center"
     >
-      <span class="text-[#474747] font-bold text-lg">Procesando pago</span>
-      <small class="text-[#474747] font-normal text-sm"
+      <span class="text-black font-bold text-lg">Procesando pago</span>
+      <small class="text-black font-normal text-sm"
         >Esto demora unos segundos</small
       >
       <img

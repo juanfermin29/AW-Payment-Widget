@@ -1,9 +1,9 @@
 import { LitElement, html } from "lit";
 import { customElement, property, state } from "lit/decorators.js";
+import { $scrappingContext, $socketContext } from "@/context";
+import { ScrappingProcessState } from "@/interfaces";
+import alert from "@/assets/alert.png";
 import { TWStyles } from "../../../../../tailwind/twlit";
-import { $scrappingContext, $socketContext } from "../../../../context";
-import { ScrappingProcessState } from "../../../../interfaces";
-import alert from "../../../../assets/alert.png";
 @customElement("aw-confirmation-form")
 export class AwConfirmationForm extends LitElement {
   static styles = [TWStyles];

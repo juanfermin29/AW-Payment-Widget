@@ -1,17 +1,15 @@
-import { LitElement, css, html } from "lit";
+import { LitElement, html } from "lit";
 import { customElement, property } from "lit/decorators.js";
-import { Bank } from "../../interfaces";
+import { Bank } from "@/interfaces";
 import { TWStyles } from "../../../tailwind/twlit";
 import { StoreController } from "@nanostores/lit";
-import { $dataContext } from "../../context";
-import { DASHBORAD_API_URL_BASE } from "../../utils";
+import { $dataContext } from "@/context";
+import { DASHBORAD_API_URL_BASE } from "@/utils";
 import { Task } from "@lit/task";
-import "./components/index";
-import "../../components/index";
-
+import "@/elements/aw-bank-selection/components";
 @customElement("aw-bank-selection")
 export class AWBankSelection extends LitElement {
-  static styles = [css``, TWStyles];
+  static styles = [TWStyles];
 
   @property({ type: String })
   country!: string;
@@ -45,16 +43,12 @@ export class AWBankSelection extends LitElement {
       ${this._banksTask.render({
         complete(banks) {
           return html`
-            <div class=" h-[100%] flex flex-col">
-              <span class="font-bold text-lg text-[#474747] mb-3"
+            <div class="h-[100%]  py-10 flex flex-col">
+              <span class="font-bold text-lg text-black mb-3"
                 >Selecciona tu banco</span
               >
               <aw-banks-grid .banks=${banks?.data}></aw-banks-grid>
               <div class="flex flex-1"></div>
-              <aw-continue-button
-                class="w-full"
-                type="button"
-              ></aw-continue-button>
             </div>
           `;
         },
