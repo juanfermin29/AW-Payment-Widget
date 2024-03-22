@@ -43,9 +43,6 @@ export class AWPaymentWidget extends LitElement {
   @property({ type: String })
   text?: string;
 
-  @property({ type: String })
-  buttonClass?: string = "";
-
   @property()
   widgetTokenCallback?: () => Promise<string> = undefined;
 
@@ -64,11 +61,7 @@ export class AWPaymentWidget extends LitElement {
   render() {
     this.validateProps();
     return html`
-      <button
-        ?disabled=${this._loading}
-        class=${until(this.buttonClass, "")}
-        @click=${this.fetchToken}
-      >
+      <button ?disabled=${this._loading} @click=${this.fetchToken}>
         <div class="flex flex-row items-center">
           ${this._loading
             ? html`<div
