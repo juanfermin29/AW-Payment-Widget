@@ -121,7 +121,7 @@ export class AwScrappingProcess extends LitElement {
           ScrappingProcessState.Approved,
           ScrappingProcessState.TimeOut,
         ].includes(this._pageState)
-          ? html` <aw-process-finalized
+          ? html` <aw-scrapping-finalized
               ${animate({
                 keyframeOptions: {
                   duration: 200,
@@ -130,7 +130,7 @@ export class AwScrappingProcess extends LitElement {
                 in: fadeIn,
               })}
               state=${this._pageState}
-            ></aw-process-finalized>`
+            ></aw-scrapping-finalized>`
           : ""}
       </div>
     `;

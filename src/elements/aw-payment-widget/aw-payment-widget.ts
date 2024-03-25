@@ -4,7 +4,6 @@ import { $dataContext, $scrappingContext } from "@/context";
 import { awPaymentWidgetSchema } from "@/utils";
 import * as React from "react";
 import { createComponent } from "@lit/react";
-import { until } from "lit/directives/until.js";
 import "../aw-modal/aw-modal";
 import { OnSuccessEvent, ScrappingProcessState } from "@/interfaces";
 import { TWStyles } from "../../../tailwind/twlit";

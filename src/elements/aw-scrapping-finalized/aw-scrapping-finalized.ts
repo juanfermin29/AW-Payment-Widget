@@ -1,10 +1,10 @@
 import { LitElement, html } from "lit";
 import { customElement, property } from "lit/decorators.js";
 import { ScrappingProcessState } from "@/interfaces";
-import "@/elements/aw-process-finalized/components";
+import "@/elements/aw-scrapping-finalized/components";
 import { TWStyles } from "../../../tailwind/twlit";
 
-@customElement("aw-process-finalized")
+@customElement("aw-scrapping-finalized")
 export class AwProcessFinalized extends LitElement {
   static styles = [TWStyles];
 
